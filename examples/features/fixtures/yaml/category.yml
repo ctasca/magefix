@@ -1,0 +1,11 @@
+fixture:
+    model : catalog/category
+    attributes:
+        parent_id : '{{getParentId}}'
+        store_id : '{{getStoreId}}'
+        name: 'Decorations'
+        url_key: 'decorations'
+        description: 'A collection of decorative object'
+        is_active: '1'
+        display_mode: 'PRODUCTS'
+        is_anchor: '0'
