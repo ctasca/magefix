@@ -201,7 +201,7 @@ class FeatureContext extends MagentoContext
     use FixturesRegistry;
 ```
 
-#### 4) Invoke `build` Operation in Behat's Feature class
+#### 4) Invoke `Builder::build` operation in Behat's Feature class
 
 ```php
 FixtureBuilder::build(

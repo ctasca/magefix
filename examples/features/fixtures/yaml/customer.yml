@@ -5,7 +5,9 @@ fixture:
         store: '{{getStore}}'
         firstname: 'Batman'
         lastname: 'Robin'
-        dob: '25 December 1980'
+        dob: '25 December 1980' #optional
         password: '123123pass'
         confirmation: '123123pass'
         email: '{{getCustomerEmail}}'
+        #taxvat: optional
+        #gender: optional

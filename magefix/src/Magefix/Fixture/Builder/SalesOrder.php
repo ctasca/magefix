@@ -179,26 +179,145 @@ class SalesOrder extends AbstractBuilder
         }
     }
 
+    /**
+     *
+     */
     protected function _setCheckoutMethod()
     {
         $this->_validateCheckoutMethod();
         $checkoutMethodData = $this->_processFixtureAttributes($this->_data['fixture']['checkout']);
         $this->_getMageModel()->setCheckoutMethod($checkoutMethodData['method']);
-
         $this->_setCheckoutMethodGuest($checkoutMethodData);
+
+        if ($this->_isRegisterCheckout($checkoutMethodData)) {
+            $customerData = $this->_processFixtureAttributes($this->_data['fixture']['checkout']['customer']);
+            $this->_setCheckoutMethodRegister($customerData);
+        }
     }
 
     /**
+     * @param $method
      * @param $checkoutMethodData
      *
+     * @return bool
      */
-    protected function _setCheckoutMethodGuest($checkoutMethodData)
+    protected function _isCheckoutMethod($method, $checkoutMethodData)
     {
-        if ($checkoutMethodData['method'] == Mage_Checkout_Model_Type_Onepage::METHOD_GUEST) {
+        $isGuestCheckout = false;
+
+        if ($checkoutMethodData['method'] == $method) {
+            $isGuestCheckout = true;
+        }
+
+        return $isGuestCheckout;
+    }
+
+    /**
+     * @param array $checkoutMethodData
+     *
+     * @return bool
+     *
+     */
+    protected function _isGuestCheckout(array $checkoutMethodData)
+    {
+        return $this->_isCheckoutMethod(Mage_Checkout_Model_Type_Onepage::METHOD_GUEST, $checkoutMethodData);
+    }
+
+    /**
+     * @param array $checkoutMethodData
+     *
+     * @return bool
+     *
+     */
+    protected function _isRegisterCheckout(array $checkoutMethodData)
+    {
+        return $this->_isCheckoutMethod(Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER, $checkoutMethodData);
+    }
+
+    /**
+     * @param array $checkoutMethodData
+     *
+     * @return bool
+     *
+     */
+    protected function _isCustomerCheckout(array $checkoutMethodData)
+    {
+        return $this->_isCheckoutMethod(Mage_Checkout_Model_Type_Onepage::METHOD_CUSTOMER, $checkoutMethodData);
+    }
+
+
+    /**
+     * @param array $checkoutMethodData
+     *
+     */
+    protected function _setCheckoutMethodGuest(array $checkoutMethodData)
+    {
+        if ($this->_isGuestCheckout($checkoutMethodData)) {
             $this->_getMageModel()->setCustomerId(null)
                 ->setCustomerEmail($this->_getMageModel()->getBillingAddress()->getEmail())
                 ->setCustomerIsGuest(true)
                 ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+        }
+    }
+
+    /**
+     * @param array $customerRegisterData
+     *
+     */
+    protected function _setCheckoutMethodRegister(array $customerRegisterData)
+    {
+        $dob = $this->_setCustomerRegistrationOptionalData($customerRegisterData);
+
+        $customer = Mage::getModel($customerRegisterData['model']);
+        $this->_getMageModel()->setPasswordHash($customer->encryptPassword($customerRegisterData['password']));
+        $customer->setData($customerRegisterData);
+
+        if (isset($customerRegisterData['dob'])) {
+            $customer->setDob($dob);
+        }
+
+        $this->_validateRegistrationCustomer($customerRegisterData, $customer);
+    }
+
+    /**
+     * @param array $customerRegisterData
+     *
+     * @return date
+     *
+     */
+    protected function _setCustomerRegistrationOptionalData(array $customerRegisterData)
+    {
+        if (isset($customerRegisterData['dob'])) {
+            $dob = Mage::app()->getLocale()->date($customerRegisterData['dob'], null, null, false)->toString(
+                'yyyy-MM-dd'
+            );
+
+            $this->_getMageModel()->setCustomerDob($dob);
+        }
+
+        if (isset($customerRegisterData['taxvat'])) {
+            $this->_getMageModel()->setCustomerTaxvat($customerRegisterData['taxvat']);
+        }
+
+        if (isset($customerRegisterData['gender'])) {
+            $this->_getMageModel()->setCustomerGender($customerRegisterData['gender']);
+        }
+
+        return $dob;
+    }
+
+    /**
+     * @param array $customerRegisterData
+     * @param       $customer
+     *
+     */
+    protected function _validateRegistrationCustomer(array $customerRegisterData, $customer)
+    {
+        $validationResult = $customer->validate();
+
+        if ($validationResult === true) {
+            $this->_getMageModel()->getBillingAddress()->setEmail($customerRegisterData['email']);
+            Mage::helper('core')->copyFieldset('customer_account', 'to_quote', $customer, $this->_getMageModel());
         }
     }
 
