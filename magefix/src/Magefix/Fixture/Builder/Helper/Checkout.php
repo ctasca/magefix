@@ -18,7 +18,7 @@ class Checkout
      * @return bool
      *
      */
-    public static function _isGuestCheckout(array $checkoutMethodData)
+    public static function isGuestCheckout(array $checkoutMethodData)
     {
         return self::_isCheckoutMethod(Mage_Checkout_Model_Type_Onepage::METHOD_GUEST, $checkoutMethodData);
     }

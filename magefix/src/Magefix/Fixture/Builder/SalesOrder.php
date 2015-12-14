@@ -178,7 +178,7 @@ class SalesOrder extends AbstractBuilder
             $this->_getMageModel()->setFreeShipping(true);
         }
     }
-    
+
     protected function _setCheckoutMethod()
     {
         $this->_validateCheckoutMethod();
