@@ -6,12 +6,12 @@
 namespace Magefix\Fixture\Builder;
 
 use Mage;
-use Mage_Checkout_Model_Type_Onepage;
 use Mage_Customer_Model_Group;
 use Magefix\Exceptions\UndefinedAttributes;
 use Magefix\Exceptions\UndefinedQuoteAddresses;
 use Magefix\Exceptions\UndefinedQuoteProducts;
 use Magefix\Exceptions\UnknownQuoteAddressType;
+use Magefix\Fixture\Builder\Helper\Checkout;
 
 /**
  * Class SalesOrder
@@ -178,10 +178,7 @@ class SalesOrder extends AbstractBuilder
             $this->_getMageModel()->setFreeShipping(true);
         }
     }
-
-    /**
-     *
-     */
+    
     protected function _setCheckoutMethod()
     {
         $this->_validateCheckoutMethod();
@@ -189,62 +186,11 @@ class SalesOrder extends AbstractBuilder
         $this->_getMageModel()->setCheckoutMethod($checkoutMethodData['method']);
         $this->_setCheckoutMethodGuest($checkoutMethodData);
 
-        if ($this->_isRegisterCheckout($checkoutMethodData)) {
+        if (Checkout::isRegisterCheckout($checkoutMethodData)) {
             $customerData = $this->_processFixtureAttributes($this->_data['fixture']['checkout']['customer']);
             $this->_setCheckoutMethodRegister($customerData);
         }
     }
-
-    /**
-     * @param $method
-     * @param $checkoutMethodData
-     *
-     * @return bool
-     */
-    protected function _isCheckoutMethod($method, $checkoutMethodData)
-    {
-        $isGuestCheckout = false;
-
-        if ($checkoutMethodData['method'] == $method) {
-            $isGuestCheckout = true;
-        }
-
-        return $isGuestCheckout;
-    }
-
-    /**
-     * @param array $checkoutMethodData
-     *
-     * @return bool
-     *
-     */
-    protected function _isGuestCheckout(array $checkoutMethodData)
-    {
-        return $this->_isCheckoutMethod(Mage_Checkout_Model_Type_Onepage::METHOD_GUEST, $checkoutMethodData);
-    }
-
-    /**
-     * @param array $checkoutMethodData
-     *
-     * @return bool
-     *
-     */
-    protected function _isRegisterCheckout(array $checkoutMethodData)
-    {
-        return $this->_isCheckoutMethod(Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER, $checkoutMethodData);
-    }
-
-    /**
-     * @param array $checkoutMethodData
-     *
-     * @return bool
-     *
-     */
-    protected function _isCustomerCheckout(array $checkoutMethodData)
-    {
-        return $this->_isCheckoutMethod(Mage_Checkout_Model_Type_Onepage::METHOD_CUSTOMER, $checkoutMethodData);
-    }
-
 
     /**
      * @param array $checkoutMethodData
@@ -252,7 +198,7 @@ class SalesOrder extends AbstractBuilder
      */
     protected function _setCheckoutMethodGuest(array $checkoutMethodData)
     {
-        if ($this->_isGuestCheckout($checkoutMethodData)) {
+        if (Checkout::isGuestCheckout($checkoutMethodData)) {
             $this->_getMageModel()->setCustomerId(null)
                 ->setCustomerEmail($this->_getMageModel()->getBillingAddress()->getEmail())
                 ->setCustomerIsGuest(true)
@@ -330,6 +276,28 @@ class SalesOrder extends AbstractBuilder
 
     }
 
+    protected function _importPaymentData(array $data)
+    {
+        $this->_getMageModel()->getPayment()->importData(['method' => $data['method']]);
+    }
+
+    /**
+     * @return mixed
+     * @throws Exception
+     *
+     */
+    protected function _saveFixture()
+    {
+        $this->_getMageModel()->save();
+        $order = Checkout::quoteServiceSubmitAll($this->_getMageModel());
+
+        return $order->getId();
+    }
+
+    /**
+     * @throws UndefinedQuoteProducts
+     *
+     */
     protected function _validatePaymentMethod()
     {
         if (!isset($this->_data['fixture']['payment']['method'])) {
@@ -337,11 +305,6 @@ class SalesOrder extends AbstractBuilder
                 'Sales Order Fixture: Payment method has not been defined. Check fixture yml.'
             );
         }
-    }
-
-    protected function _importPaymentData(array $data)
-    {
-        $this->_getMageModel()->getPayment()->importData(['method' => $data['method']]);
     }
 
     /**
@@ -354,19 +317,6 @@ class SalesOrder extends AbstractBuilder
             isset($this->_data['fixture']['checkout']['method']),
             'Sales Order Fixture: Checkout method has not been defined. Check fixture yml.'
         );
-    }
-
-    protected function _saveFixture()
-    {
-        $this->_getMageModel()->save();
-
-        $service = Mage::getModel('sales/service_quote', $this->_getMageModel());
-        $service->submitAll();
-
-        $order = $service->getOrder();
-
-        return $order->getId();
-
     }
 
     /**
