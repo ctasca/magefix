@@ -1,7 +1,4 @@
 <?php
-/**
- * Checkout.php
- */
 
 namespace Magefix\Fixture\Builder\Helper;
 
