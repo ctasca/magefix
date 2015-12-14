@@ -282,11 +282,12 @@ class SalesOrder extends AbstractBuilder
     /**
      * @param array $customerRegisterData
      *
-     * @return date
+     * @return date|bool
      *
      */
     protected function _setCustomerRegistrationOptionalData(array $customerRegisterData)
     {
+        $dob = false;
         if (isset($customerRegisterData['dob'])) {
             $dob = Mage::app()->getLocale()->date($customerRegisterData['dob'], null, null, false)->toString(
                 'yyyy-MM-dd'
