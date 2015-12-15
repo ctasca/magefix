@@ -9,6 +9,7 @@ use Magefix\Exceptions\UndefinedQuoteAddresses;
 use Magefix\Exceptions\UndefinedQuoteProducts;
 use Magefix\Exceptions\UnknownQuoteAddressType;
 use Magefix\Fixture\Builder\Helper\Checkout;
+use Magefix\Fixture\Builder\Helper\QuoteCustomer;
 use Magefix\Fixture\Builder\Helper\ShippingAddress;
 use Magefix\Fixture\Builder\Helper\ShippingMethod;
 
@@ -141,10 +142,8 @@ class SalesOrder extends AbstractBuilder
     protected function _setCheckoutMethodGuest(array $checkoutMethodData)
     {
         if (Checkout::isGuestCheckout($checkoutMethodData)) {
-            $this->_getMageModel()->setCustomerId(null)
-                ->setCustomerEmail($this->_getMageModel()->getBillingAddress()->getEmail())
-                ->setCustomerIsGuest(true)
-                ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+            $customer = new QuoteCustomer($this, $this->_getMageModel(), $checkoutMethodData);
+            $customer->setMethodGuest();
         }
     }
 
@@ -154,60 +153,8 @@ class SalesOrder extends AbstractBuilder
      */
     protected function _setCheckoutMethodRegister(array $customerRegisterData)
     {
-        $dob = $this->_setCustomerRegistrationOptionalData($customerRegisterData);
-
-        $customer = Mage::getModel($customerRegisterData['model']);
-        $this->_getMageModel()->setPasswordHash($customer->encryptPassword($customerRegisterData['password']));
-        $customer->setData($customerRegisterData);
-
-        if (isset($customerRegisterData['dob'])) {
-            $customer->setDob($dob);
-        }
-
-        $this->_validateRegistrationCustomer($customerRegisterData, $customer);
-    }
-
-    /**
-     * @param array $customerRegisterData
-     *
-     * @return date|bool
-     *
-     */
-    protected function _setCustomerRegistrationOptionalData(array $customerRegisterData)
-    {
-        $dob = false;
-        if (isset($customerRegisterData['dob'])) {
-            $dob = Mage::app()->getLocale()->date($customerRegisterData['dob'], null, null, false)->toString(
-                'yyyy-MM-dd'
-            );
-
-            $this->_getMageModel()->setCustomerDob($dob);
-        }
-
-        if (isset($customerRegisterData['taxvat'])) {
-            $this->_getMageModel()->setCustomerTaxvat($customerRegisterData['taxvat']);
-        }
-
-        if (isset($customerRegisterData['gender'])) {
-            $this->_getMageModel()->setCustomerGender($customerRegisterData['gender']);
-        }
-
-        return $dob;
-    }
-
-    /**
-     * @param array $customerRegisterData
-     * @param       $customer
-     *
-     */
-    protected function _validateRegistrationCustomer(array $customerRegisterData, $customer)
-    {
-        $validationResult = $customer->validate();
-
-        if ($validationResult === true) {
-            $this->_getMageModel()->getBillingAddress()->setEmail($customerRegisterData['email']);
-            Mage::helper('core')->copyFieldset('customer_account', 'to_quote', $customer, $this->_getMageModel());
-        }
+        $customer = new QuoteCustomer($this, $this->_getMageModel(), $customerRegisterData);
+        $customer->setMethodRegister();
     }
 
     protected function _setPaymentMethod()

@@ -7,7 +7,7 @@ use Mage;
 use Mage_Sales_Model_Quote;
 
 /**
- * Class ShippingMethod
+ * Class Shipping
  *
  * @package Magefix\Fixture\Builder\Helper
  * @author  Carlo Tasca <ctasca@sessiondigital.com>
