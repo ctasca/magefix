@@ -1,7 +1,4 @@
 <?php
-/**
- * SalesOrder
- */
 
 namespace Magefix\Fixture\Builder;
 

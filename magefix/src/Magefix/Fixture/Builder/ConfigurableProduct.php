@@ -1,7 +1,4 @@
 <?php
-/**
- * ConfigurableProduct.php
- */
 
 namespace Magefix\Fixture\Builder;
 
