@@ -9,6 +9,7 @@ use Magefix\Exceptions\UndefinedQuoteAddresses;
 use Magefix\Exceptions\UndefinedQuoteProducts;
 use Magefix\Exceptions\UnknownQuoteAddressType;
 use Magefix\Fixture\Builder\Helper\Checkout;
+use Magefix\Fixture\Builder\Helper\ShippingMethod;
 
 /**
  * Class SalesOrder
@@ -117,7 +118,9 @@ class SalesOrder extends AbstractBuilder
         $this->_validateShippingMethodData();
 
         $shippingData = $this->_processFixtureAttributes($this->_data['fixture']['shipping_method']);
-        $this->_setShippingData($shippingData);
+
+        $shippingMethod = new ShippingMethod($this->_getMageModel(), $shippingData);
+        $shippingMethod->addShippingDataToQuote();
     }
 
     /**
@@ -150,30 +153,6 @@ class SalesOrder extends AbstractBuilder
             isset($this->_data['fixture']['shipping_method']['collect_shipping_rates']),
             'Sales Order Fixture: Collect shipping rates has not been defined. Check fixture yml.'
         );
-    }
-
-    /**
-     * @param $shippingData
-     *
-     */
-    protected function _setShippingData($shippingData)
-    {
-        $shippingAddress = $this->_getMageModel()->getShippingAddress();
-        $shippingAddress->setShippingMethod($shippingData['method']);
-        $shippingAddress->setShippingDescription($shippingData['description']);
-
-        if ($shippingData['collect_shipping_rates']) {
-            $shippingAddress->setCollectShippingRates(true);
-            $shippingAddress->collectShippingRates();
-        }
-
-        if ($shippingData['collect_totals']) {
-            $this->_getMageModel()->collectTotals();
-        }
-
-        if ($shippingData['free_shipping']) {
-            $this->_getMageModel()->setFreeShipping(true);
-        }
     }
 
     protected function _setCheckoutMethod()

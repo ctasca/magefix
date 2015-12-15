@@ -7,6 +7,7 @@ namespace Magefix\Fixture\Builder\Helper;
 
 
 use Mage;
+use Mage_Sales_Model_Quote;
 
 /**
  * Class ShippingMethod
@@ -16,6 +17,41 @@ use Mage;
  */
 class ShippingMethod
 {
+    /**
+     * @var array
+     */
+    private $_shippingData = [];
+    /**
+     * @var Mage_Sales_Model_Quote
+     */
+    private $_quote;
+
+    public function __construct(Mage_Sales_Model_Quote $quote, array $data)
+    {
+        $this->_shippingData = $data;
+        $this->_quote = $quote;
+    }
+    
+    public function addShippingDataToQuote()
+    {
+        $shippingAddress = $this->_quote->getShippingAddress();
+        $shippingAddress->setShippingMethod($this->_shippingData['method']);
+        $shippingAddress->setShippingDescription($this->_shippingData['description']);
+
+        if ($this->_shippingData['collect_shipping_rates']) {
+            $shippingAddress->setCollectShippingRates(true);
+            $shippingAddress->collectShippingRates();
+        }
+
+        if ($this->_shippingData['collect_totals']) {
+            $this->_quote->collectTotals();
+        }
+
+        if ($this->_shippingData['free_shipping']) {
+            $this->_quote->setFreeShipping(true);
+        }
+    }
+
     /**
      * Enable specified carrier. e.g. flatrate
      *
