@@ -1,7 +1,4 @@
 <?php
-/**
- * Builder.php
- */
 
 namespace Magefix\Fixture;
 

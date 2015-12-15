@@ -1,7 +1,4 @@
 <?php
-/**
- * BundleProduct.php
- */
 
 namespace Magefix\Fixture\Builder;
 

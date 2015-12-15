@@ -1,7 +1,4 @@
 <?php
-/**
- * Scope.php
- */
 
 namespace Magefix\Magento\Store;
 use Mage;

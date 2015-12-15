@@ -1,17 +1,17 @@
 <?php
-/**
- * SalesOrder
- */
 
 namespace Magefix\Fixture\Builder;
 
 use Mage;
-use Mage_Checkout_Model_Type_Onepage;
 use Mage_Customer_Model_Group;
 use Magefix\Exceptions\UndefinedAttributes;
 use Magefix\Exceptions\UndefinedQuoteAddresses;
 use Magefix\Exceptions\UndefinedQuoteProducts;
 use Magefix\Exceptions\UnknownQuoteAddressType;
+use Magefix\Fixture\Builder\Helper\Checkout;
+use Magefix\Fixture\Builder\Helper\QuoteCustomer;
+use Magefix\Fixture\Builder\Helper\ShippingAddress;
+use Magefix\Fixture\Builder\Helper\ShippingMethod;
 
 /**
  * Class SalesOrder
@@ -76,43 +76,8 @@ class SalesOrder extends AbstractBuilder
     {
         $this->_throwUndefinedQuoteAddressesException();
 
-        foreach ($this->_data['fixture']['addresses'] as $addressType => $address) {
-            switch ($addressType) {
-                case 'billing_and_shipping':
-                    $this->_setQuoteAddress($addressType, true);
-                    break;
-                case ('billing' || 'shipping'):
-                    $this->_setQuoteAddress($addressType, false);
-                    break;
-                default:
-                    throw new UnknownQuoteAddressType(
-                        'Sales Order Fixture: Unknown quote address type. Check fixture yml.'
-                    );
-            }
-        }
-    }
-
-    /**
-     * @param $addressType
-     *
-     * @param $sameAsBilling
-     *
-     * @return array
-     */
-    protected function _setQuoteAddress($addressType, $sameAsBilling)
-    {
-        $address = $this->_processFixtureAttributes($this->_data['fixture']['addresses'][$addressType]);
-
-        if ($sameAsBilling === true) {
-            $this->_getMageModel()->getBillingAddress()->addData($address);
-            $this->_getMageModel()->getShippingAddress()->addData($address);
-        }
-
-        if ($addressType == 'billing' && $sameAsBilling === false) {
-            $this->_getMageModel()->getBillingAddress()->addData($address);
-        } elseif ($addressType == 'shipping' && $sameAsBilling === false) {
-            $this->_getMageModel()->getShippingAddress()->addData($address);
-        }
+        $addresses = new ShippingAddress($this, $this->_getMageModel(), $this->_data);
+        $addresses->addToQuote();
     }
 
     protected function _setShippingMethod()
@@ -120,7 +85,9 @@ class SalesOrder extends AbstractBuilder
         $this->_validateShippingMethodData();
 
         $shippingData = $this->_processFixtureAttributes($this->_data['fixture']['shipping_method']);
-        $this->_setShippingData($shippingData);
+
+        $shippingMethod = new ShippingMethod($this->_getMageModel(), $shippingData);
+        $shippingMethod->addShippingDataToQuote();
     }
 
     /**
@@ -155,51 +122,39 @@ class SalesOrder extends AbstractBuilder
         );
     }
 
-    /**
-     * @param $shippingData
-     *
-     */
-    protected function _setShippingData($shippingData)
-    {
-        $shippingAddress = $this->_getMageModel()->getShippingAddress();
-        $shippingAddress->setShippingMethod($shippingData['method']);
-        $shippingAddress->setShippingDescription($shippingData['description']);
-
-        if ($shippingData['collect_shipping_rates']) {
-            $shippingAddress->setCollectShippingRates(true);
-            $shippingAddress->collectShippingRates();
-        }
-
-        if ($shippingData['collect_totals']) {
-            $this->_getMageModel()->collectTotals();
-        }
-
-        if ($shippingData['free_shipping']) {
-            $this->_getMageModel()->setFreeShipping(true);
-        }
-    }
-
     protected function _setCheckoutMethod()
     {
         $this->_validateCheckoutMethod();
         $checkoutMethodData = $this->_processFixtureAttributes($this->_data['fixture']['checkout']);
         $this->_getMageModel()->setCheckoutMethod($checkoutMethodData['method']);
-
         $this->_setCheckoutMethodGuest($checkoutMethodData);
+
+        if (Checkout::isRegisterCheckout($checkoutMethodData)) {
+            $customerData = $this->_processFixtureAttributes($this->_data['fixture']['checkout']['customer']);
+            $this->_setCheckoutMethodRegister($customerData);
+        }
     }
 
     /**
-     * @param $checkoutMethodData
+     * @param array $checkoutMethodData
      *
      */
-    protected function _setCheckoutMethodGuest($checkoutMethodData)
+    protected function _setCheckoutMethodGuest(array $checkoutMethodData)
     {
-        if ($checkoutMethodData['method'] == Mage_Checkout_Model_Type_Onepage::METHOD_GUEST) {
-            $this->_getMageModel()->setCustomerId(null)
-                ->setCustomerEmail($this->_getMageModel()->getBillingAddress()->getEmail())
-                ->setCustomerIsGuest(true)
-                ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+        if (Checkout::isGuestCheckout($checkoutMethodData)) {
+            $customer = new QuoteCustomer($this, $this->_getMageModel(), $checkoutMethodData);
+            $customer->setMethodGuest();
         }
+    }
+
+    /**
+     * @param array $customerRegisterData
+     *
+     */
+    protected function _setCheckoutMethodRegister(array $customerRegisterData)
+    {
+        $customer = new QuoteCustomer($this, $this->_getMageModel(), $customerRegisterData);
+        $customer->setMethodRegister();
     }
 
     protected function _setPaymentMethod()
@@ -210,6 +165,28 @@ class SalesOrder extends AbstractBuilder
 
     }
 
+    protected function _importPaymentData(array $data)
+    {
+        $this->_getMageModel()->getPayment()->importData(['method' => $data['method']]);
+    }
+
+    /**
+     * @return mixed
+     * @throws Exception
+     *
+     */
+    protected function _saveFixture()
+    {
+        $this->_getMageModel()->save();
+        $order = Checkout::quoteServiceSubmitAll($this->_getMageModel());
+
+        return $order->getId();
+    }
+
+    /**
+     * @throws UndefinedQuoteProducts
+     *
+     */
     protected function _validatePaymentMethod()
     {
         if (!isset($this->_data['fixture']['payment']['method'])) {
@@ -217,11 +194,6 @@ class SalesOrder extends AbstractBuilder
                 'Sales Order Fixture: Payment method has not been defined. Check fixture yml.'
             );
         }
-    }
-
-    protected function _importPaymentData(array $data)
-    {
-        $this->_getMageModel()->getPayment()->importData(['method' => $data['method']]);
     }
 
     /**
@@ -234,19 +206,6 @@ class SalesOrder extends AbstractBuilder
             isset($this->_data['fixture']['checkout']['method']),
             'Sales Order Fixture: Checkout method has not been defined. Check fixture yml.'
         );
-    }
-
-    protected function _saveFixture()
-    {
-        $this->_getMageModel()->save();
-
-        $service = Mage::getModel('sales/service_quote', $this->_getMageModel());
-        $service->submitAll();
-
-        $order = $service->getOrder();
-
-        return $order->getId();
-
     }
 
     /**

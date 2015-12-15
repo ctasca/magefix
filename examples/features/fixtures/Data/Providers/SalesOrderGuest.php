@@ -16,7 +16,7 @@ use Magefix\Fixtures\Data\Provider;
  * @package Data\Providers
  * @author  Carlo Tasca <ctasca@sessiondigital.com>
  */
-class SalesOrder implements Provider
+class SalesOrderGuest implements Provider
 {
     public function getStoreId()
     {

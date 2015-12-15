@@ -29,7 +29,18 @@ fixture:
     checkout:
         # either 'guest', 'register' or 'customer'
         method: '{{getCheckoutMethod}}'
-        customer: 0
+        customer:
+            model: customer/customer
+            website_id: '{{getWebsiteId}}'
+            store: '{{getStore}}'
+            firstname: 'Batman'
+            lastname: 'Robin'
+            dob: '25 December 1980' #optional
+            password: '123123pass'
+            password_confirmation: '123123pass'
+            email: '{{getCustomerEmail}}'
+            #taxvat: optional
+            #gender: optional
     addresses:
         # 'billing_and_shipping' or 'billing' and 'shipping'
         billing_and_shipping:

@@ -1,7 +1,4 @@
 <?php
-/**
- * RegistryIterator.php
- */
 
 namespace Magefix\Fixtures;
 
