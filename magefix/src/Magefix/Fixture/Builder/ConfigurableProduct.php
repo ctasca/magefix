@@ -36,10 +36,14 @@ class ConfigurableProduct extends Product
 
     public function build()
     {
+        $mergedData = $this->_beforeBuild();
         $this->_buildAssociatedProductFixtures();
         $this->_feedUsedProductAttributeIds();
 
-        $fixtureId = parent::build();
+        $this->_initFixtureWithData($mergedData);
+        $this->_setConfigurableFixtureDataBeforeSave();
+
+        $fixtureId = $this->_saveFixture();
 
         return $fixtureId;
     }
