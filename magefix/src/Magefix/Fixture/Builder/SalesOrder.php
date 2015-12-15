@@ -9,6 +9,7 @@ use Magefix\Exceptions\UndefinedQuoteAddresses;
 use Magefix\Exceptions\UndefinedQuoteProducts;
 use Magefix\Exceptions\UnknownQuoteAddressType;
 use Magefix\Fixture\Builder\Helper\Checkout;
+use Magefix\Fixture\Builder\Helper\ShippingAddress;
 use Magefix\Fixture\Builder\Helper\ShippingMethod;
 
 /**
@@ -74,43 +75,8 @@ class SalesOrder extends AbstractBuilder
     {
         $this->_throwUndefinedQuoteAddressesException();
 
-        foreach ($this->_data['fixture']['addresses'] as $addressType => $address) {
-            switch ($addressType) {
-                case 'billing_and_shipping':
-                    $this->_setQuoteAddress($addressType, true);
-                    break;
-                case ('billing' || 'shipping'):
-                    $this->_setQuoteAddress($addressType, false);
-                    break;
-                default:
-                    throw new UnknownQuoteAddressType(
-                        'Sales Order Fixture: Unknown quote address type. Check fixture yml.'
-                    );
-            }
-        }
-    }
-
-    /**
-     * @param $addressType
-     *
-     * @param $sameAsBilling
-     *
-     * @return array
-     */
-    protected function _setQuoteAddress($addressType, $sameAsBilling)
-    {
-        $address = $this->_processFixtureAttributes($this->_data['fixture']['addresses'][$addressType]);
-
-        if ($sameAsBilling === true) {
-            $this->_getMageModel()->getBillingAddress()->addData($address);
-            $this->_getMageModel()->getShippingAddress()->addData($address);
-        }
-
-        if ($addressType == 'billing' && $sameAsBilling === false) {
-            $this->_getMageModel()->getBillingAddress()->addData($address);
-        } elseif ($addressType == 'shipping' && $sameAsBilling === false) {
-            $this->_getMageModel()->getShippingAddress()->addData($address);
-        }
+        $addresses = new ShippingAddress($this, $this->_getMageModel(), $this->_data);
+        $addresses->addToQuote();
     }
 
     protected function _setShippingMethod()

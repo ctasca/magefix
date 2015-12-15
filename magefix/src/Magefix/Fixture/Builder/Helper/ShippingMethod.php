@@ -1,7 +1,4 @@
 <?php
-/**
- * ShippingMethod.php
- */
 
 namespace Magefix\Fixture\Builder\Helper;
 
@@ -31,7 +28,7 @@ class ShippingMethod
         $this->_shippingData = $data;
         $this->_quote = $quote;
     }
-    
+
     public function addShippingDataToQuote()
     {
         $shippingAddress = $this->_quote->getShippingAddress();

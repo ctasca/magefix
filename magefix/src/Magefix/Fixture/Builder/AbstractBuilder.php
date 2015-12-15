@@ -83,6 +83,19 @@ abstract class AbstractBuilder implements Builder
     }
 
     /**
+     * @param array $attributes
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public function processFixtureAttributes(array $attributes)
+    {
+        $fixtureAttributes = $this->_processFixtureAttributesWithProvider($attributes, $this->_getDataProvider());
+
+        return $fixtureAttributes;
+    }
+
+    /**
      * @param array    $attributes
      * @param Provider $dataProvider
      *
