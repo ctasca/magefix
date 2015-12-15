@@ -51,7 +51,6 @@ class QuoteCustomer
     }
 
     /**
-     * @param array $this->_data
      *
      * @return date|bool
      *
