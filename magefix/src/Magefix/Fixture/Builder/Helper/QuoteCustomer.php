@@ -6,6 +6,7 @@ use Mage;
 use Mage_Customer_Model_Group;
 use Mage_Sales_Model_Quote;
 use Magefix\Fixture\Builder;
+use Magefix\Fixture\Builder\Helper;
 
 /**
  * Class QuoteCustomer
@@ -13,7 +14,7 @@ use Magefix\Fixture\Builder;
  * @package Magefix\Fixture\Builder\Helper
  * @author  Carlo Tasca <ctasca@sessiondigital.com>
  */
-class QuoteCustomer
+class QuoteCustomer implements Helper
 {
     /**
      * @var Builder

@@ -6,8 +6,9 @@ namespace Magefix\Fixture\Builder\Helper;
 use Mage_Sales_Model_Quote;
 use Magefix\Exceptions\UnknownQuoteAddressType;
 use Magefix\Fixture\Builder\AbstractBuilder;
+use Magefix\Fixture\Builder\Helper;
 
-class ShippingAddress
+class ShippingAddress implements Helper
 {
     /**
      * @var Mage_Sales_Model_Quote

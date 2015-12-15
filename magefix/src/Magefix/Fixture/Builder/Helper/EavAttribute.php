@@ -1,11 +1,9 @@
 <?php
-/**
- * EavAttribute.php
- */
 
 namespace Magefix\Fixture\Builder\Helper;
 
 use Mage;
+use Magefix\Fixture\Builder\Helper;
 
 /**
  * Class EavAttribute
@@ -13,7 +11,7 @@ use Mage;
  * @package Magefix\Fixture\Builder\Helper
  * @author  Carlo Tasca <ctasca@sessiondigital.com>
  */
-class EavAttribute
+class EavAttribute implements Helper
 {
     /**
      * @param $entityType
