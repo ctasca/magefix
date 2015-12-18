@@ -3,6 +3,7 @@
 namespace Magefix\Fixture\Builder\Helper;
 
 
+use Mage;
 use Mage_Sales_Model_Quote;
 use Magefix\Exceptions\UnknownQuoteAddressType;
 use Magefix\Fixture\Builder\AbstractBuilder;
@@ -58,16 +59,21 @@ class ShippingAddress implements Helper
     protected function _setQuoteAddress($addressType, $sameAsBilling)
     {
         $address = $this->_builder->processFixtureAttributes($this->_data['fixture']['addresses'][$addressType]);
-
+        $billing = Mage::getModel('sales/quote_address');
+        $shipping = Mage::getModel('sales/quote_address');
         if ($sameAsBilling === true) {
-            $this->_quote->getBillingAddress()->addData($address);
-            $this->_quote->getShippingAddress()->addData($address);
+            $billing->setData($address);
+            $shipping->setData($address);
+            $this->_quote->setBillingAddress($billing);
+            $this->_quote->setShippingAddress($shipping);
         }
 
         if ($addressType == 'billing' && $sameAsBilling === false) {
-            $this->_quote->getBillingAddress()->addData($address);
+            $billing->setData($address);
+            $this->_quote->setBillingAddress($billing);
         } elseif ($addressType == 'shipping' && $sameAsBilling === false) {
-            $this->_quote->getShippingAddress()->addData($address);
+            $shipping->setData($address);
+            $this->_quote->setShippingAddress($shipping);
         }
     }
 }

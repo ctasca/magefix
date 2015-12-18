@@ -37,7 +37,7 @@ class QuoteCustomer implements Helper
         $this->_data    = $_data;
     }
 
-    public function setMethodGuest()
+    public function setupMethodGuest()
     {
         $this->_quote->setCustomerId(null)
             ->setCustomerEmail($this->_quote->getBillingAddress()->getEmail())
@@ -45,10 +45,10 @@ class QuoteCustomer implements Helper
             ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
     }
     
-    public function setMethodRegister()
+    public function setupMethodRegister()
     {
-        $this->_setCustomerOptionalData();
-        $this->_setCustomerDataAndValidate();
+        $this->_setupCustomerOptionalData();
+        $this->_setupCustomerDataAndValidate();
     }
 
     /**
@@ -56,7 +56,7 @@ class QuoteCustomer implements Helper
      * @return date|bool
      *
      */
-    private function _setCustomerOptionalData()
+    private function _setupCustomerOptionalData()
     {
         $dob = false;
         if (isset($this->_data['dob'])) {
@@ -78,7 +78,7 @@ class QuoteCustomer implements Helper
         return $dob;
     }
     
-    private function _setCustomerDataAndValidate()
+    private function _setupCustomerDataAndValidate()
     {
         $customer = Mage::getModel($this->_data['model']);
         $this->_quote->setPasswordHash($customer->encryptPassword($this->_data['password']));

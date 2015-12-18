@@ -12,6 +12,7 @@ use Magefix\Fixture\Builder\Helper\Checkout;
 use Magefix\Fixture\Builder\Helper\QuoteCustomer;
 use Magefix\Fixture\Builder\Helper\ShippingAddress;
 use Magefix\Fixture\Builder\Helper\ShippingMethod;
+use Magefix\Fixture\Factory\Builder;
 
 /**
  * Class SalesOrder
@@ -40,9 +41,9 @@ class SalesOrder extends AbstractBuilder
         $this->_getMageModel()->setData($mergedData);
         $this->_buildQuoteProductFixtures();
         $this->_addProductsToQuote();
+        $this->_setCheckoutMethod();
         $this->_addAddressesToQuote();
         $this->_setShippingMethod();
-        $this->_setCheckoutMethod();
         $this->_setPaymentMethod();
 
         return $this->_saveFixture();
@@ -126,35 +127,51 @@ class SalesOrder extends AbstractBuilder
     {
         $this->_validateCheckoutMethod();
         $checkoutMethodData = $this->_processFixtureAttributes($this->_data['fixture']['checkout']);
+        $customerData       = isset($this->_data['fixture']['checkout']['customer']) ? $this->_processFixtureAttributes(
+            $this->_data['fixture']['checkout']['customer']
+        ) : [];
         $this->_getMageModel()->setCheckoutMethod($checkoutMethodData['method']);
-        $this->_setCheckoutMethodGuest($checkoutMethodData);
-
-        if (Checkout::isRegisterCheckout($checkoutMethodData)) {
-            $customerData = $this->_processFixtureAttributes($this->_data['fixture']['checkout']['customer']);
-            $this->_setCheckoutMethodRegister($customerData);
-        }
+        $this->_setupCheckoutMethodGuest($checkoutMethodData);
+        $this->_setupCheckoutMethodRegister($checkoutMethodData, $customerData);
+        $this->_setupCheckoutMethodCustomer($checkoutMethodData, $customerData);
     }
 
     /**
      * @param array $checkoutMethodData
      *
      */
-    protected function _setCheckoutMethodGuest(array $checkoutMethodData)
+    protected function _setupCheckoutMethodGuest(array $checkoutMethodData)
     {
         if (Checkout::isGuestCheckout($checkoutMethodData)) {
             $customer = new QuoteCustomer($this, $this->_getMageModel(), $checkoutMethodData);
-            $customer->setMethodGuest();
+            $customer->setupMethodGuest();
         }
     }
 
     /**
      * @param array $customerRegisterData
-     *
+     * @param array $customerData
      */
-    protected function _setCheckoutMethodRegister(array $customerRegisterData)
+    protected function _setupCheckoutMethodRegister(array $customerRegisterData, array $customerData)
     {
-        $customer = new QuoteCustomer($this, $this->_getMageModel(), $customerRegisterData);
-        $customer->setMethodRegister();
+        if (Checkout::isRegisterCheckout($customerRegisterData)) {
+            $customer = new QuoteCustomer($this, $this->_getMageModel(), $customerData);
+            $customer->setupMethodRegister();
+        }
+    }
+
+    /**
+     * @param array $customerRegisterData
+     * @param array $customerData
+     */
+    protected function _setupCheckoutMethodCustomer(array $customerRegisterData, array $customerData)
+    {
+        if (Checkout::isCustomerCheckout($customerRegisterData)) {
+            $customers = Builder::buildMany(Builder::CUSTOMER_FIXTURE_TYPE, $this, [$customerData], $this->getHook());
+            if (count($customers)) {
+                $this->getMageModel()->setCustomer($customers[0]);
+            }
+        }
     }
 
     protected function _setPaymentMethod()

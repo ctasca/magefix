@@ -1,7 +1,4 @@
 <?php
-/**
- * SalesOrder.php
- */
 
 namespace Data\Providers;
 
