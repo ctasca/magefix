@@ -128,7 +128,7 @@ class RegistryIterator extends \ArrayObject
      */
     protected function _changeRegistryEntry(array $entryMatch, $entry, $key)
     {
-        $mageModel = $this->_instanciateMageModel($entryMatch);
+        $mageModel = $this->_instantiateMageModel($entryMatch);
 
         if ($this->_isExpectedType($mageModel)) {
             $this->_echoRegistryChangeMessage(
@@ -155,7 +155,7 @@ class RegistryIterator extends \ArrayObject
      * @throws \Exception
      *
      */
-    protected function _instanciateMageModel(array $entryMatch)
+    protected function _instantiateMageModel(array $entryMatch)
     {
         if (!isset($entryMatch[1])) {
             return;
