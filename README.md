@@ -233,6 +233,7 @@ deleted.
 
 Currently these hooks can be used:
 
+- `@AfterSuite`
 - `@AfterFeature`
 - `@AfterScenario`
 - `@AfterStep`

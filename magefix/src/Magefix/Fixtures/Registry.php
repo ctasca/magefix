@@ -107,6 +107,14 @@ trait Registry
     }
 
     /**
+     * @AfterSuite
+     */
+    public static function afterSuiteFixturesCleanup()
+    {
+        self::_cleanupFixtureByHook('aftersuite');
+    }
+
+    /**
      * @AfterFeature
      */
     public static function afterFeatureFixturesCleanup()
