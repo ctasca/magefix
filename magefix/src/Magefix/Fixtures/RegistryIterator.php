@@ -28,9 +28,12 @@ class RegistryIterator extends \ArrayObject
             $entryMatch = $this->isEntryMatch($hook, $key);
 
             if (!empty($entryMatch) && isset($entryMatch[1])) {
-                $this->_echoRegistryChangeMessage(
-                    $this->getMageModelForMatch($entryMatch[1]), $entryMatch[1], $entry, $key
-                );
+                $mageModel = $this->getMageModelForMatch($entryMatch[1]);
+                if ($mageModel instanceof Mage_Core_Model_Abstract) {
+                    $this->_echoRegistryChangeMessage(
+                        $mageModel, $entryMatch[1], $entry, $key
+                    );
+                }
             }
 
             $registryIteratorIterator->next();
