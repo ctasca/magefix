@@ -11,11 +11,27 @@ namespace Magefix\Behat;
 trait Hook
 {
     /**
+     * @BeforeSuite
+     */
+    public static function beforeSuiteFixturesCleanup()
+    {
+        self::_cleanupFixtureByHook('beforesuite');
+    }
+
+    /**
      * @AfterSuite
      */
     public static function afterSuiteFixturesCleanup()
     {
         self::_cleanupFixtureByHook('aftersuite');
+    }
+
+    /**
+     * @BeforeFeature
+     */
+    public static function beforeFeatureFixturesCleanup()
+    {
+        self::_cleanupFixtureByHook('beforefeature');
     }
 
     /**
@@ -27,11 +43,27 @@ trait Hook
     }
 
     /**
+     * @BeforeScenario
+     */
+    public function beforeScenarioFixturesCleanup()
+    {
+        self::_cleanupFixtureByHook('beforescenario');
+    }
+
+    /**
      * @AfterScenario
      */
     public function afterScenarioFixturesCleanup()
     {
         self::_cleanupFixtureByHook('afterscenario');
+    }
+
+    /**
+     * @BeforeStep
+     */
+    public function beforeStepFixturesCleanup()
+    {
+        self::_cleanupFixtureByHook('beforestep');
     }
 
     /**

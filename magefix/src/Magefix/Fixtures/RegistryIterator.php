@@ -62,7 +62,7 @@ class RegistryIterator extends \ArrayObject
      * @param $hook
      * @param $key
      *
-     * @return array
+     * @return string[]
      *
      */
     public function isEntryMatch($hook, $key)
