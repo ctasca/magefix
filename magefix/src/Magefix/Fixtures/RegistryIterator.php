@@ -27,14 +27,7 @@ class RegistryIterator extends \ArrayObject
             $entry      = $registryIteratorIterator->current();
             $entryMatch = $this->isEntryMatch($hook, $key);
 
-            if (!empty($entryMatch) && isset($entryMatch[1])) {
-                $mageModel = $this->getMageModelForMatch($entryMatch[1]);
-                if (!is_null($mageModel) && is_a($mageModel, 'Mage_Core_Model_Abstract')) {
-                    $this->_echoRegistryChangeMessage(
-                        $mageModel, $entryMatch[1], $entry, $key
-                    );
-                }
-            }
+            $this->_changeRegistryEntry($entryMatch, $entry, $key);
 
             $registryIteratorIterator->next();
         }
@@ -124,5 +117,23 @@ class RegistryIterator extends \ArrayObject
     protected function _deleteFixtureMessage($fixtureType, $entry)
     {
         return "-- DELETED {$fixtureType} fixture with ID {$entry}\n";
+    }
+
+    /**
+     * @param $entryMatch
+     * @param $entry
+     * @param $key
+     *
+     */
+    protected function _changeRegistryEntry($entryMatch, $entry, $key)
+    {
+        if (!empty($entryMatch) && isset($entryMatch[1])) {
+            $mageModel = $this->getMageModelForMatch($entryMatch[1]);
+            if (!is_null($mageModel) && is_a($mageModel, 'Mage_Core_Model_Abstract')) {
+                $this->_echoRegistryChangeMessage(
+                    $mageModel, $entryMatch[1], $entry, $key
+                );
+            }
+        }
     }
 }
