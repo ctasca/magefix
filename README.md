@@ -231,10 +231,13 @@ deleted.
 
 ### Available hooks
 
-Currently these hooks can be used:
-
+- `@BeforeSuite`
+- `@AfterSuite`
+- `@BeforeFeature`
 - `@AfterFeature`
+- `@BeforeScenario`
 - `@AfterScenario`
+- `@BeforeStep`
 - `@AfterStep`
 
 ## Using Many Locators

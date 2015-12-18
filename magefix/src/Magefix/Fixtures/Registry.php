@@ -3,12 +3,11 @@
 namespace Magefix\Fixtures;
 
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
-use Mage_Core_Model_Abstract;
 use Magefix\Magento\Store\Scope as MagentoStoreScope;
 use Magefix\Fixture\Factory\Builder as FixtureBuilder;
 use Magefix\Exceptions\UnavailableHook;
 use Magefix\Exceptions\NullFixtureId;
-
+use Magefix\Behat\Hook;
 /**
  * Class Registry
  *
@@ -17,6 +16,8 @@ use Magefix\Exceptions\NullFixtureId;
  */
 trait Registry
 {
+    use Hook;
+
     /**
      * Registry collection
      *
@@ -102,44 +103,8 @@ trait Registry
     {
         if ($hook) {
             $lowercaseHook = strtolower($hook);
-            switch ($lowercaseHook) {
-                case '@afterfeature':
-                    self::_registerFixture($type, $fixtureId, trim($lowercaseHook, '@'));
-                    break;
-                case '@afterscenario':
-                    self::_registerFixture($type, $fixtureId, trim($lowercaseHook, '@'));
-                    break;
-                case '@afterstep':
-                    self::_registerFixture($type, $fixtureId, trim($lowercaseHook, '@'));
-                    break;
-                default:
-                    throw new UnavailableHook("Specified hook {$hook} has not been implemented yet.");
-            }
+            self::_registerFixture($type, $fixtureId, trim($lowercaseHook, '@'));
         }
-    }
-
-    /**
-     * @AfterFeature
-     */
-    public static function afterFeatureFixturesCleanup()
-    {
-        self::_cleanupFixtureByHook('afterfeature');
-    }
-
-    /**
-     * @AfterScenario
-     */
-    public function afterScenarioFixturesCleanup()
-    {
-        self::_cleanupFixtureByHook('afterscenario');
-    }
-
-    /**
-     * @AfterStep
-     */
-    public function afterStepFixturesCleanup()
-    {
-        self::_cleanupFixtureByHook('afterstep');
     }
 
     /**
@@ -162,51 +127,11 @@ trait Registry
      */
     protected static function _cleanupFixtureByHook($hook)
     {
-        $registry = self::_getBuilderRegistry();
-
+        $registry         = self::_getBuilderRegistry();
+        $registryIterator = new RegistryIterator($registry);
         MagentoStoreScope::setAdminStoreScope();
-        self::_iterateRegistry($registry, $hook);
+        $registryIterator->iterateByHook($hook);
         MagentoStoreScope::setCurrentStoreScope();
-    }
-
-    /**
-     * @param $registry
-     * @param $hook
-     *
-     * @throws \Exception
-     */
-    protected static function _iterateRegistry($registry, $hook)
-    {
-        $registryIterator         = new RegistryIterator($registry);
-        $registryIteratorIterator = $registryIterator->getIterator();
-
-        while ($registryIteratorIterator->valid()) {
-            $key        = $registryIteratorIterator->key();
-            $entry      = $registryIteratorIterator->current();
-            $entryMatch = $registryIterator->isEntryMatch($hook, $key);
-
-            if (!empty($entryMatch) && isset($entryMatch[1])) {
-                self::_echoRegistryChangeMessage(
-                    $registryIterator->getMageModelForMatch($entryMatch[1]), $entryMatch[1], $entry, $key
-                );
-            }
-
-            $registryIteratorIterator->next();
-        }
-    }
-
-
-    /**
-     * @param Mage_Core_Model_Abstract $model
-     * @param                          $fixtureType
-     * @param                          $entry
-     * @param                          $key
-     */
-    protected static function _echoRegistryChangeMessage(Mage_Core_Model_Abstract $model, $fixtureType, $entry, $key)
-    {
-        echo self::_deleteAndUnregisterFixture(
-            $model, $fixtureType, $entry, $key
-        );
     }
 
     /**
@@ -215,35 +140,6 @@ trait Registry
     protected static function _getBuilderRegistry()
     {
         return FixtureBuilder::getRegistry();
-    }
-
-    /**
-     * @param Mage_Core_Model_Abstract $model
-     * @param                          $fixtureType
-     * @param                          $entry
-     * @param                          $key
-     *
-     * @return string
-     * @throws \Exception
-     */
-    protected static function _deleteAndUnregisterFixture(Mage_Core_Model_Abstract $model, $fixtureType, $entry, $key)
-    {
-        $fixture = $model->load((int)$entry);
-        $fixture->delete();
-        FixtureBuilder::unregister($key);
-
-        return self::_deleteFixtureMessage($fixtureType, $entry);
-    }
-
-    /**
-     * @param string $fixtureType
-     * @param string $entry
-     *
-     * @return string
-     */
-    protected static function _deleteFixtureMessage($fixtureType, $entry)
-    {
-        return "-- DELETED {$fixtureType} fixture with ID {$entry}\n";
     }
 
     /**

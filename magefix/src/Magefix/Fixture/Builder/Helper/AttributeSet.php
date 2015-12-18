@@ -1,7 +1,4 @@
 <?php
-/**
- * AttributeSet.php
- */
 
 namespace Magefix\Fixture\Builder\Helper;
 use Mage;
