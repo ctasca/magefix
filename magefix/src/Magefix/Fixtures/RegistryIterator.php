@@ -78,12 +78,12 @@ class RegistryIterator extends \ArrayObject
     }
 
     /**
-     * @param Mage_Core_Model_Abstract $model
-     * @param string                  $fixtureType
+     * @param Mage_Core_Model_Abstrac  $model
+     * @param string                   $fixtureType
      * @param                          $entry
      * @param                          $key
      */
-    protected function _echoRegistryChangeMessage(Mage_Core_Model_Abstract $model, $fixtureType, $entry, $key)
+    protected function _echoRegistryChangeMessage($model, $fixtureType, $entry, $key)
     {
         echo $this->_deleteAndUnregisterFixture(
             $model, $fixtureType, $entry, $key
@@ -133,6 +133,11 @@ class RegistryIterator extends \ArrayObject
         }
 
         $mageModel = $this->getMageModelForMatch($entryMatch[1]);
+
+        if (is_null($mageModel)) {
+            throw new \Exception('Cannot initialise Magento model from registry entry match.');
+        }
+
         if ($this->_isExpectedType($mageModel)) {
             $this->_echoRegistryChangeMessage(
                 $mageModel, $entryMatch[1], $entry, $key
