@@ -102,19 +102,7 @@ trait Registry
     {
         if ($hook) {
             $lowercaseHook = strtolower($hook);
-            switch ($lowercaseHook) {
-                case '@afterfeature':
-                    self::_registerFixture($type, $fixtureId, trim($lowercaseHook, '@'));
-                    break;
-                case '@afterscenario':
-                    self::_registerFixture($type, $fixtureId, trim($lowercaseHook, '@'));
-                    break;
-                case '@afterstep':
-                    self::_registerFixture($type, $fixtureId, trim($lowercaseHook, '@'));
-                    break;
-                default:
-                    throw new UnavailableHook("Specified hook {$hook} has not been implemented yet.");
-            }
+            self::_registerFixture($type, $fixtureId, trim($lowercaseHook, '@'));
         }
     }
 
