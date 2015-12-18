@@ -120,20 +120,34 @@ class RegistryIterator extends \ArrayObject
     }
 
     /**
-     * @param $entryMatch
-     * @param $entry
-     * @param $key
+     * @param array $entryMatch
+     * @param       $entry
+     * @param       $key
+     *
+     * @throws \Exception
+     */
+    protected function _changeRegistryEntry(array $entryMatch, $entry, $key)
+    {
+        if (!isset($entryMatch[1])) {
+            throw new \Exception('Unmatchable entry.');
+        }
+
+        $mageModel = $this->getMageModelForMatch($entryMatch[1]);
+        if ($this->_isExpectedType($mageModel)) {
+            $this->_echoRegistryChangeMessage(
+                $mageModel, $entryMatch[1], $entry, $key
+            );
+        }
+    }
+
+    /**
+     * @param $mageModel
+     *
+     * @return bool
      *
      */
-    protected function _changeRegistryEntry($entryMatch, $entry, $key)
+    protected function _isExpectedType($mageModel)
     {
-        if (!empty($entryMatch) && isset($entryMatch[1])) {
-            $mageModel = $this->getMageModelForMatch($entryMatch[1]);
-            if (!is_null($mageModel) && is_a($mageModel, 'Mage_Core_Model_Abstract')) {
-                $this->_echoRegistryChangeMessage(
-                    $mageModel, $entryMatch[1], $entry, $key
-                );
-            }
-        }
+        return !is_null($mageModel) && is_a($mageModel, 'Mage_Core_Model_Abstract');
     }
 }
