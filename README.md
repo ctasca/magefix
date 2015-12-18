@@ -227,6 +227,8 @@ After building a fixture, to delete it via a Behat hook, simply provide the hook
 **Note:** If a hook is not specified, the fixture created will not be added to `Registry` for clean up, thus it won't be
 deleted.
 
+![Image of Data Providers Directory](assets/behatrun-s.png)
+
 ### Available hooks
 
 Currently these hooks can be used:
