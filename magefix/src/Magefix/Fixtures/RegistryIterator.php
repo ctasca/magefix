@@ -128,15 +128,7 @@ class RegistryIterator extends \ArrayObject
      */
     protected function _changeRegistryEntry(array $entryMatch, $entry, $key)
     {
-        if (!isset($entryMatch[1])) {
-            throw new \Exception('Unmatchable entry.');
-        }
-
-        $mageModel = $this->getMageModelForMatch($entryMatch[1]);
-
-        if (is_null($mageModel)) {
-            throw new \Exception('Cannot initialise Magento model from registry entry match.');
-        }
+        $mageModel = $this->_instanciateMageModel($entryMatch);
 
         if ($this->_isExpectedType($mageModel)) {
             $this->_echoRegistryChangeMessage(
@@ -154,5 +146,27 @@ class RegistryIterator extends \ArrayObject
     protected function _isExpectedType($mageModel)
     {
         return !is_null($mageModel) && is_a($mageModel, 'Mage_Core_Model_Abstract');
+    }
+
+    /**
+     * @param array $entryMatch
+     *
+     * @return array
+     * @throws \Exception
+     *
+     */
+    protected function _instanciateMageModel(array $entryMatch)
+    {
+        if (!isset($entryMatch[1])) {
+            throw new \Exception('Unmatchable entry.');
+        }
+
+        $mageModel = $this->getMageModelForMatch($entryMatch[1]);
+
+        if (is_null($mageModel)) {
+            throw new \Exception('Cannot initialise Magento model from registry entry match.');
+        }
+
+        return $mageModel;
     }
 }
