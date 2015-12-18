@@ -6,8 +6,9 @@ namespace Magefix\Fixture\Builder\Helper;
 use Mage;
 use Mage_Checkout_Model_Type_Onepage;
 use Mage_Sales_Model_Quote;
+use Magefix\Fixture\Builder\Helper;
 
-class Checkout
+class Checkout implements Helper
 {
     /**
      * @param array $checkoutMethodData

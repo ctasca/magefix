@@ -6,6 +6,7 @@ use Mage;
 use Mage_Customer_Model_Group;
 use Mage_Sales_Model_Quote;
 use Magefix\Fixture\Builder;
+use Magefix\Fixture\Builder\Helper;
 
 /**
  * Class QuoteCustomer
@@ -13,7 +14,7 @@ use Magefix\Fixture\Builder;
  * @package Magefix\Fixture\Builder\Helper
  * @author  Carlo Tasca <ctasca@sessiondigital.com>
  */
-class QuoteCustomer
+class QuoteCustomer implements Helper
 {
     /**
      * @var Builder
@@ -36,7 +37,7 @@ class QuoteCustomer
         $this->_data    = $_data;
     }
 
-    public function setMethodGuest()
+    public function setupMethodGuest()
     {
         $this->_quote->setCustomerId(null)
             ->setCustomerEmail($this->_quote->getBillingAddress()->getEmail())
@@ -44,10 +45,10 @@ class QuoteCustomer
             ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
     }
     
-    public function setMethodRegister()
+    public function setupMethodRegister()
     {
-        $this->_setCustomerOptionalData();
-        $this->_setCustomerDataAndValidate();
+        $this->_setupCustomerOptionalData();
+        $this->_setupCustomerDataAndValidate();
     }
 
     /**
@@ -55,7 +56,7 @@ class QuoteCustomer
      * @return date|bool
      *
      */
-    private function _setCustomerOptionalData()
+    private function _setupCustomerOptionalData()
     {
         $dob = false;
         if (isset($this->_data['dob'])) {
@@ -77,7 +78,7 @@ class QuoteCustomer
         return $dob;
     }
     
-    private function _setCustomerDataAndValidate()
+    private function _setupCustomerDataAndValidate()
     {
         $customer = Mage::getModel($this->_data['model']);
         $this->_quote->setPasswordHash($customer->encryptPassword($this->_data['password']));

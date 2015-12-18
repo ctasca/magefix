@@ -31,23 +31,24 @@ fixture:
         method: '{{getCheckoutMethod}}'
         customer:
             model: customer/customer
-            website_id: '{{getWebsiteId}}'
-            store: '{{getStore}}'
-            firstname: 'Batman'
-            lastname: 'Robin'
-            dob: '25 December 1980' #optional
-            password: '123123pass'
-            password_confirmation: '123123pass'
-            email: '{{getCustomerEmail}}'
-            #taxvat: optional
-            #gender: optional
+            data_provider: 'Data\Providers\Customer'
+            attributes:
+                website_id: '{{getWebsiteId}}'
+                store: '{{getStore}}'
+                firstname: 'Batman'
+                lastname: 'Robin'
+                dob: '25 December 1980' #optional
+                password: '123123pass'
+                confirmation: '123123pass'
+                email: '{{getCustomerEmail}}'
+
     addresses:
         # 'billing_and_shipping' or 'billing' and 'shipping'
         billing_and_shipping:
             email: "{{getCustomerEmail}}"
             firstname: 'Batman'
             lastname: 'Robin'
-            street: '12 Headcorn'
+            street: '12 Headcorn, 25 Malden Road'
             city: 'London'
             region: '{{getRegion}}'
             postcode: 'NW5 2FG'
@@ -56,7 +57,7 @@ fixture:
             telephone: '02078763456'
             is_default_billing: 1
             is_default_shipping: 1
-            save_in_address_book: 1
+            save_in_address_book: 0
     shipping_method:
         carrier: '{{getShippingCarrier}}'
         method: '{{getShippingMethod}}'

@@ -5,14 +5,15 @@ namespace Magefix\Fixture\Builder\Helper;
 
 use Mage;
 use Mage_Sales_Model_Quote;
+use Magefix\Fixture\Builder\Helper;
 
 /**
- * Class Shipping
+ * Class ShippingMethod
  *
  * @package Magefix\Fixture\Builder\Helper
  * @author  Carlo Tasca <ctasca@sessiondigital.com>
  */
-class ShippingMethod
+class ShippingMethod implements Helper
 {
     /**
      * @var array

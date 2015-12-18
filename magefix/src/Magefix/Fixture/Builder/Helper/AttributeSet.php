@@ -5,8 +5,9 @@
 
 namespace Magefix\Fixture\Builder\Helper;
 use Mage;
+use Magefix\Fixture\Builder\Helper;
 
-class AttributeSet
+class AttributeSet implements Helper
 {
     public static function getIdByName($name)
     {
