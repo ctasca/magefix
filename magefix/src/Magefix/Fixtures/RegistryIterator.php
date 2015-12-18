@@ -78,7 +78,7 @@ class RegistryIterator extends \ArrayObject
     }
 
     /**
-     * @param Mage_Core_Model_Abstrac  $model
+     * @param                          $model
      * @param string                   $fixtureType
      * @param                          $entry
      * @param                          $key
@@ -101,7 +101,7 @@ class RegistryIterator extends \ArrayObject
      */
     protected function _deleteAndUnregisterFixture(Mage_Core_Model_Abstract $model, $fixtureType, $entry, $key)
     {
-        $fixture = $model->load((int) $entry);
+        $fixture = $model->load((int)$entry);
         $fixture->delete();
         Builder::unregister($key);
 
