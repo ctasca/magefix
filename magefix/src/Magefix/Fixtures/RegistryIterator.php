@@ -29,7 +29,7 @@ class RegistryIterator extends \ArrayObject
 
             if (!empty($entryMatch) && isset($entryMatch[1])) {
                 $mageModel = $this->getMageModelForMatch($entryMatch[1]);
-                if (is_a($mageModel, 'Mage_Core_Model_Abstract')) {
+                if (!is_null($mageModel) && is_a($mageModel, 'Mage_Core_Model_Abstract')) {
                     $this->_echoRegistryChangeMessage(
                         $mageModel, $entryMatch[1], $entry, $key
                     );
@@ -41,7 +41,7 @@ class RegistryIterator extends \ArrayObject
     }
 
     /**
-     * @param $match
+     * @param string $match
      *
      * @return \Mage_Catalog_Model_Category|\Mage_Catalog_Model_Product|\Mage_Customer_Model_Customer|\Mage_Sales_Model_Order|null
      *
@@ -86,7 +86,7 @@ class RegistryIterator extends \ArrayObject
 
     /**
      * @param Mage_Core_Model_Abstract $model
-     * @param                          $fixtureType
+     * @param string                  $fixtureType
      * @param                          $entry
      * @param                          $key
      */
@@ -99,7 +99,7 @@ class RegistryIterator extends \ArrayObject
 
     /**
      * @param Mage_Core_Model_Abstract $model
-     * @param                          $fixtureType
+     * @param string                   $fixtureType
      * @param                          $entry
      * @param                          $key
      *
