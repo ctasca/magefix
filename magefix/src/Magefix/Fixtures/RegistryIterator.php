@@ -158,7 +158,7 @@ class RegistryIterator extends \ArrayObject
     protected function _instanciateMageModel(array $entryMatch)
     {
         if (!isset($entryMatch[1])) {
-            throw new \Exception('Unmatchable entry.');
+            return;
         }
 
         $mageModel = $this->getMageModelForMatch($entryMatch[1]);

@@ -7,7 +7,7 @@ use Magefix\Magento\Store\Scope as MagentoStoreScope;
 use Magefix\Fixture\Factory\Builder as FixtureBuilder;
 use Magefix\Exceptions\UnavailableHook;
 use Magefix\Exceptions\NullFixtureId;
-
+use Magefix\Behat\Hook;
 /**
  * Class Registry
  *
@@ -16,6 +16,8 @@ use Magefix\Exceptions\NullFixtureId;
  */
 trait Registry
 {
+    use Hook;
+
     /**
      * Registry collection
      *
@@ -103,38 +105,6 @@ trait Registry
             $lowercaseHook = strtolower($hook);
             self::_registerFixture($type, $fixtureId, trim($lowercaseHook, '@'));
         }
-    }
-
-    /**
-     * @AfterSuite
-     */
-    public static function afterSuiteFixturesCleanup()
-    {
-        self::_cleanupFixtureByHook('aftersuite');
-    }
-
-    /**
-     * @AfterFeature
-     */
-    public static function afterFeatureFixturesCleanup()
-    {
-        self::_cleanupFixtureByHook('afterfeature');
-    }
-
-    /**
-     * @AfterScenario
-     */
-    public function afterScenarioFixturesCleanup()
-    {
-        self::_cleanupFixtureByHook('afterscenario');
-    }
-
-    /**
-     * @AfterStep
-     */
-    public function afterStepFixturesCleanup()
-    {
-        self::_cleanupFixtureByHook('afterstep');
     }
 
     /**
