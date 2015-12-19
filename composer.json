@@ -1,0 +1,45 @@
+{
+  "name": "ctasca/magefix",
+  "description": "Magento Behat Fixtures Library",
+  "keywords": [
+    "fixture",
+    "magento",
+    "testing",
+    "behat",
+    "bdd"
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/MageTest/BehatMage.git"
+    }
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Carlo Tasca",
+      "email": "carlo.tasca.mail@gmail.com"
+    },
+    {
+      "name": "Contributors",
+      "homepage": "https://github.com/ctasca/magefix/graphs/contributors"
+    }
+  ],
+  "require": {
+    "php": ">=5.3",
+    "symfony/yaml": "~2.0"
+  },
+  "require-dev": {
+    "behat/behat": "3.*",
+    "magetest/magento-behat-extension": "dev-feature/Behat3"
+  },
+  "autoload": {
+    "psr-0": {
+      "Magefix": "magefix/src"
+    }
+  },
+  "config": {
+    "bin-dir": "bin"
+  }
+}

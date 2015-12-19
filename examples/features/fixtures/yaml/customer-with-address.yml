@@ -1,0 +1,28 @@
+fixture:
+    model: customer/customer
+    attributes:
+        website_id: '{{getWebsiteId}}'
+        store: '{{getStore}}'
+        firstname: 'Batman'
+        lastname: 'Robin'
+        dob: '25 December 1980'
+        password: '123123pass'
+        confirmation: '123123pass'
+        email: '{{getCustomerEmail}}'
+    address:
+        model: customer/address
+        default:
+            firstname: 'Rafa'
+            lastname: 'Nadal'
+            street:
+                0: '12 Headcorn'
+                1: '25 Malden Road'
+            city: 'London'
+            region: '{{getRegion}}'
+            postcode: 'NW5 2FG'
+            country_id: 'GB'
+            country: 'United Kingdom'
+            telephone: '02078763456'
+            is_default_billing: '1'
+            is_default_shipping: '1'
+            save_in_address_book: '1'

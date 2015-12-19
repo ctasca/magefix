@@ -1,0 +1,71 @@
+fixture:
+    model: sales/quote
+    attributes:
+        store_id: '{{getStoreId}}'
+    quote_products:
+        products:
+            0:
+                model: catalog/product
+                data_provider: 'Data\Providers\SimpleProduct'
+                attributes:
+                    name: 'Simple Product Fixture'
+                    description: 'Long Description'
+                    short_description: 'Short Description'
+                    weight: 10
+                    status: 1
+                    visibility: 4
+                    price: 100.00
+                    tax_class_id: 0
+                    website_ids: '{{getWebsiteIds}}'
+                    attribute_set_id : '{{getDefaultAttributeSetId}}'
+                    category_ids: '{{getCategoryIds}}'
+                    type_id: '{{getTypeId}}'
+                    sku: '{{getSku}}'
+                stock:
+                    stock_data:
+                        qty: 10
+                        is_in_stock: 1
+                        manage_stock: 1
+    checkout:
+        # either 'guest', 'register' or 'customer'
+        method: '{{getCheckoutMethod}}'
+        customer:
+            model: customer/customer
+            website_id: '{{getWebsiteId}}'
+            store: '{{getStore}}'
+            firstname: 'Batman'
+            lastname: 'Robin'
+            dob: '25 December 1980' #optional
+            password: '123123pass'
+            password_confirmation: '123123pass'
+            email: '{{getCustomerEmail}}'
+            #taxvat: optional
+            #gender: optional
+    addresses:
+        # 'billing_and_shipping' or 'billing' and 'shipping'
+        billing_and_shipping:
+            email: "{{getCustomerEmail}}"
+            firstname: 'Batman'
+            lastname: 'Robin'
+            street: '12 Headcorn'
+            city: 'London'
+            region: '{{getRegion}}'
+            postcode: 'NW5 2FG'
+            country_id: 'GB'
+            country: 'United Kingdom'
+            telephone: '02078763456'
+            is_default_billing: 1
+            is_default_shipping: 1
+            save_in_address_book: 1
+    shipping_method:
+        carrier: '{{getShippingCarrier}}'
+        method: '{{getShippingMethod}}'
+        description: '{{getShippingMethodDescription}}'
+        free_shipping: 1
+        collect_totals: 1
+        collect_shipping_rates: 1
+    payment:
+        # e.g. checkmo
+        method: '{{getPaymentMethod}}'
+
+

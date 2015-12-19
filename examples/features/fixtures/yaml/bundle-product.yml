@@ -1,0 +1,197 @@
+fixture:
+    model: catalog/product
+    attributes:
+        name: 'Bundle Product Fixture'
+        description: 'Long Description'
+        short_description: 'Short Description'
+        weight: 10
+        status: 1
+        price_type: 0
+        price_view: 0
+        weight_type: 0
+        tax_class_id: 0
+        visibility: '{{getVisibility}}'
+        website_ids: '{{getWebsiteIds}}'
+        attribute_set_id : '{{getClothingAttributeSetId}}'
+        category_ids: '{{getCategoryIds}}'
+        type_id: '{{getTypeId}}'
+        sku: '{{getSku}}'
+        sku_type: 0
+    stock:
+        stock_data:
+            qty: 0
+            is_in_stock: 1
+            manage_stock: 0
+    media:
+        gallery:
+            image: '{{getFixtureImage}}'
+    bundle_options:
+        0:
+            title: 'item01'
+            option_id: ''
+            delete: ''
+            type: 'select'
+            required: 1
+            position: 1
+        1:
+            title: 'item02'
+            option_id: ''
+            delete: ''
+            type: 'multi'
+            required: 1
+            position: 1
+    bundle_products:
+        products:
+            0:
+                model: catalog/product
+                data_provider: 'Data\Providers\BundleSimpleProduct'
+                attributes:
+                    name: 'Simple Product Fixture'
+                    description: 'Long Description'
+                    short_description: 'Short Description'
+                    weight: 10
+                    status: 1
+                    visibility: '{{getVisibility}}'
+                    price: 50.00
+                    tax_class_id: 0
+                    website_ids: '{{getWebsiteIds}}'
+                    attribute_set_id : '{{getClothingAttributeSetId}}'
+                    category_ids: '{{getCategoryIds}}'
+                    type_id: '{{getTypeId}}'
+                    sku: '{{getSku}}'
+                    color: '{{getBlueColorOptionId}}'
+                    size: '{{getXLSizeOptionId}}'
+                    apparel_type: '{{getDenimOptionId}}'
+                stock:
+                    stock_data:
+                        qty: 20
+                        is_in_stock: 1
+                        manage_stock: 0
+                media:
+                    gallery:
+                        image: '{{getFixtureImage}}'
+
+            1:
+                model: catalog/product
+                data_provider: 'Data\Providers\BundleSimpleProduct'
+                attributes:
+                    name: 'Simple Product Fixture'
+                    description: 'Long Description'
+                    short_description: 'Short Description'
+                    weight: 10
+                    status: 1
+                    visibility: '{{getVisibility}}'
+                    price: 120.00
+                    tax_class_id: 0
+                    website_ids: '{{getWebsiteIds}}'
+                    attribute_set_id : '{{getClothingAttributeSetId}}'
+                    category_ids: '{{getCategoryIds}}'
+                    type_id: '{{getTypeId}}'
+                    sku: '{{getSku}}'
+                    color: '{{getBlackColorOptionId}}'
+                    size: '{{getMSizeOptionId}}'
+                    apparel_type: '{{getDenimOptionId}}'
+                stock:
+                    stock_data:
+                        qty: 10
+                        is_in_stock: 1
+                        manage_stock: 0
+                media:
+                    gallery:
+                        image: '{{getFixtureImage}}'
+            2:
+                model: catalog/product
+                data_provider: 'Data\Providers\BundleSimpleProduct'
+                attributes:
+                    name: 'Simple Product Fixture'
+                    description: 'Long Description'
+                    short_description: 'Short Description'
+                    weight: 10
+                    status: 1
+                    visibility: '{{getVisibility}}'
+                    price: 89.00
+                    tax_class_id: 0
+                    website_ids: '{{getWebsiteIds}}'
+                    attribute_set_id : '{{getClothingAttributeSetId}}'
+                    category_ids: '{{getCategoryIds}}'
+                    type_id: '{{getTypeId}}'
+                    sku: '{{getSku}}'
+                    color: '{{getBlueColorOptionId}}'
+                    size: '{{getXLSizeOptionId}}'
+                    apparel_type: '{{getDenimOptionId}}'
+                stock:
+                    stock_data:
+                        qty: 10
+                        is_in_stock: 1
+                        manage_stock: 0
+                media:
+                    gallery:
+                        image: '{{getFixtureImage}}'
+
+            3:
+                model: catalog/product
+                data_provider: 'Data\Providers\BundleSimpleProduct'
+                attributes:
+                    name: 'Simple Product Fixture'
+                    description: 'Long Description'
+                    short_description: 'Short Description'
+                    weight: 10
+                    status: 1
+                    visibility: '{{getVisibility}}'
+                    price: 100.00
+                    tax_class_id: 0
+                    website_ids: '{{getWebsiteIds}}'
+                    attribute_set_id : '{{getClothingAttributeSetId}}'
+                    category_ids: '{{getCategoryIds}}'
+                    type_id: '{{getTypeId}}'
+                    sku: '{{getSku}}'
+                    color: '{{getBlackColorOptionId}}'
+                    size: '{{getMSizeOptionId}}'
+                    apparel_type: '{{getDenimOptionId}}'
+                stock:
+                    stock_data:
+                        qty: 10
+                        is_in_stock: 1
+                        manage_stock: 0
+                media:
+                    gallery:
+                        image: '{{getFixtureImage}}'
+    bundle_selections:
+        0:
+            0:
+                product_id: '##0##'
+                delete: ''
+                selection_price_value: 10
+                selection_price_type: 0
+                selection_qty: 1
+                selection_can_change_quantity: 0
+                position: 0,
+                is_default: 1
+            1:
+                product_id: '##1##'
+                delete: ''
+                selection_price_value: 10
+                selection_price_type: 0
+                selection_qty: 1
+                selection_can_change_quantity: 0
+                position: 0,
+                is_default: 1
+        1:
+            0:
+                product_id: '##2##'
+                delete: ''
+                selection_price_value: 10
+                selection_price_type: 0
+                selection_qty: 1
+                selection_can_change_quantity: 0
+                position: 0,
+                is_default: 1
+            1:
+                product_id: '##3##'
+                delete: ''
+                selection_price_value: 10
+                selection_price_type: 0
+                selection_qty: 1
+                selection_can_change_quantity: 0
+                position: 0,
+                is_default: 1
