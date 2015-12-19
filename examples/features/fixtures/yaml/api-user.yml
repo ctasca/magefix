@@ -1,0 +1,15 @@
+fixture:
+  model: api/user
+  attributes:
+    username: 'batmanrobin'
+    firstname: 'Batman'
+    lastname: 'Robin'
+    email: '{{getApiUserEmail}}'
+    api_key: '{{getApiKey}}'
+    api_key_confirmation: '{{getApiKeyConfirmation}}'
+    current_password: '{{getCurrentPassword}}'
+    is_active: 1
+    user_roles:
+      0:
+        rolename: 'admin'
+        current_password: '{{getCurrentPassword}}'
