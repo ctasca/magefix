@@ -80,7 +80,7 @@ class DataIterator extends \ArrayIterator
     {
         $return = $value;
 
-        if ($this->_isReplaceableValue($value) != false) {
+        if ($this->_isReplaceableValue($value) !== false) {
             $return = $this->_replaceValue($value);
         }
 
@@ -100,15 +100,11 @@ class DataIterator extends \ArrayIterator
 
     /**
      * @param $value
-     * @return int
+     * @return int|bool
      */
     protected function _isReplaceableValue($value)
     {
-        if (is_string($value)) {
-            return preg_match('/^\{\{.*?\}\}$/i', $value);
-        }
-
-        return false;
+        return is_string($value) && preg_match('/^\{\{.*?\}\}$/i', $value);
     }
 
     /**

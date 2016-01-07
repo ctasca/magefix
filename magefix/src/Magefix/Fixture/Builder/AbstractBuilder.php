@@ -92,31 +92,6 @@ abstract class AbstractBuilder implements Builder
     }
 
     /**
-     * @param array $attributes
-     * @deprecated fixture processing delegated to iterator
-     *
-     * @return array
-     * @throws \Exception
-     */
-    public function processFixtureAttributes(array $attributes)
-    {
-        $fixtureAttributes = $this->_processFixtureAttributesWithProvider($attributes, $this->_getDataProvider());
-
-        return $fixtureAttributes;
-    }
-
-    /**
-     * @param array    $attributes
-     * @param Provider $dataProvider
-     * @deprecated fixture processing delegated to iterator
-     *
-     */
-    public function processFixtureAttributesWithProvider(array $attributes, Provider $dataProvider)
-    {
-        $this->_processFixtureAttributesWithProvider($attributes, $dataProvider);
-    }
-
-    /**
      * @param $mageModel
      * @param $data
      *
