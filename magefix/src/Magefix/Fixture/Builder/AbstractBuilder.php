@@ -4,11 +4,11 @@ namespace Magefix\Fixture\Builder;
 
 use Mage_Core_Model_Abstract as MagentoModel;
 use Magefix\Exceptions\UndefinedDataProvider;
+use Magefix\Fixture\DataIterator;
 use Magefix\Fixture\Builder;
 use Magefix\Fixture\Factory\Builder as FixtureBuilder;
 use Magefix\Fixtures\Data\Provider;
 use Magefix\Magento\Store\Scope as MagentoStoreScope;
-use Magefix\Exceptions\ProviderMethodNotFound;
 use Magefix\Exceptions\UndefinedAttributes;
 
 /**
@@ -83,7 +83,17 @@ abstract class AbstractBuilder implements Builder
     }
 
     /**
+     * Iterate fixture data
+     */
+    public function iterateFixture()
+    {
+        $iterator = new DataIterator($this->_data);
+        $this->_data = $iterator->apply($this->_getDataProvider());
+    }
+
+    /**
      * @param array $attributes
+     * @deprecated fixture processing delegated to iterator
      *
      * @return array
      * @throws \Exception
@@ -98,6 +108,7 @@ abstract class AbstractBuilder implements Builder
     /**
      * @param array    $attributes
      * @param Provider $dataProvider
+     * @deprecated fixture processing delegated to iterator
      *
      */
     public function processFixtureAttributesWithProvider(array $attributes, Provider $dataProvider)
@@ -156,47 +167,7 @@ abstract class AbstractBuilder implements Builder
     {
         $this->_throwUndefinedAttributesException(isset($this->_data['fixture']['attributes']));
 
-        return $this->_processFixtureAttributes($this->_data['fixture']['attributes']);
-    }
-
-    /**
-     * @param array $attributes
-     *
-     * @return array
-     * @throws \Exception
-     */
-    protected function _processFixtureAttributes(array $attributes)
-    {
-        $fixtureAttributes = $this->_processFixtureAttributesWithProvider($attributes, $this->_getDataProvider());
-
-        return $fixtureAttributes;
-    }
-
-    /**
-     * @param array    $attributes
-     * @param Provider $provider
-     *
-     * @return array
-     * @throws ProviderMethodNotFound
-     */
-    private function _processFixtureAttributesWithProvider(array $attributes, Provider $provider)
-    {
-        $fixtureAttributes = [];
-        foreach ($attributes as $key => $attributeValue) {
-            if (is_array($attributeValue)) {
-                $fixtureAttributes[$key] = $attributeValue;
-                continue;
-            }
-            if (preg_match('/^\{\{.*?\}\}$/i', $attributeValue)) {
-                $method = trim($attributeValue, '{}');
-                $this->_throwMethodNotFoundExceptionForProvider($provider, $method);
-                $fixtureAttributes[$key] = $provider->$method();
-            } else {
-                $fixtureAttributes[$key] = $attributeValue;
-            }
-        }
-
-        return $fixtureAttributes;
+        return $this->_data['fixture']['attributes'];
     }
 
     /**
@@ -214,10 +185,9 @@ abstract class AbstractBuilder implements Builder
 
     /**
      * @param MagentoModel $mageModel
-     * @param              $data
-     *
-     * @return int
-     * @throws NullFixtureId
+     * @param $data
+     * @return mixed
+     * @throws \Exception
      */
     protected function _saveFixtureWithModelAndData(MagentoModel $mageModel, $data)
     {
@@ -230,12 +200,9 @@ abstract class AbstractBuilder implements Builder
     }
 
     /**
-     * Add data to model, but don't save fixture
+     * Add data to model, but don't invoke save
      *
      * @param array $data
-     *
-     * @return int
-     * @throws NullFixtureId
      */
     protected function _initFixtureWithData(array $data)
     {
@@ -255,7 +222,6 @@ abstract class AbstractBuilder implements Builder
             FixtureBuilder::SIMPLE_PRODUCT_FIXTURE_TYPE, $this, $products, $this->getHook()
         );
     }
-
 
     /**
      * @param boolean $isSet
@@ -283,22 +249,6 @@ abstract class AbstractBuilder implements Builder
         if (!isset($a['data_provider'])) {
             throw new UndefinedDataProvider(
                 'Fixture has no data provider specified. Check fixture yml file.'
-            );
-        }
-    }
-
-    /**
-     * @param Provider $provider
-     * @param          $method
-     *
-     * @throws ProviderMethodNotFound
-     *
-     */
-    protected function _throwMethodNotFoundExceptionForProvider(Provider $provider, $method)
-    {
-        if (!method_exists($provider, $method)) {
-            throw new ProviderMethodNotFound(
-                "Given provider does not have the method " . $method . ' -> ' . get_class($provider)
             );
         }
     }

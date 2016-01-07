@@ -65,7 +65,7 @@ class Product extends AbstractBuilder
             $product = $this->_getMageModel()->load($fixtureId);
 
             if ($product) {
-                $gallery = $this->_processFixtureAttributes($this->_getMediaGallery());
+                $gallery = $this->_getMediaGallery();
 
                 if (!@file_exists($gallery['image'])) {
                     throw new ProductMediaGalleryImageNotFound(
@@ -96,7 +96,7 @@ class Product extends AbstractBuilder
     {
         $this->_throwUndefinedStockData($fixtureYml);
 
-        return $this->_processFixtureAttributes($fixtureYml['stock']['stock_data']);
+        return $fixtureYml['stock']['stock_data'];
     }
 
     /**
@@ -144,6 +144,7 @@ class Product extends AbstractBuilder
      */
     protected function _beforeBuild()
     {
+        $this->iterateFixture();
         $fixtureStockData = [];
         $defaultData = $this->_getMageModelData() ? $this->_getMageModelData() : [];
         $fixtureData = $this->_getFixtureAttributes();
