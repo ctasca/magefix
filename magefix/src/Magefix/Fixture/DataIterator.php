@@ -80,7 +80,7 @@ class DataIterator extends \ArrayIterator
     {
         $return = $value;
 
-        if ($this->_isReplaceableValue($value) !== null) {
+        if ($this->_isReplaceableValue($value) != false) {
             $return = $this->_replaceValue($value);
         }
 
