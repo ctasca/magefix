@@ -27,12 +27,13 @@ fixture:
                         is_in_stock: 1
                         manage_stock: 1
     checkout:
+        data_provider: 'Data\Providers\SalesOrderGuest'
         # either 'guest', 'register' or 'customer'
         method: '{{getCheckoutMethod}}'
     addresses:
         # 'billing_and_shipping' or 'billing' and 'shipping'
         billing_and_shipping:
-            email: "{{getCustomerEmail}}"
+            email: '{{getCustomerEmail}}'
             firstname: 'Batman'
             lastname: 'Robin'
             street: '12 Headcorn'

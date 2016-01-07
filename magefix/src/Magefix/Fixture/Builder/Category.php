@@ -14,6 +14,7 @@ class Category extends AbstractBuilder
 {
     public function build()
     {
+        $this->iterateFixture();
         $fixtureData = $this->_getFixtureAttributes();
 
         if (!isset($fixtureData['parent_id'])) {
@@ -28,5 +29,4 @@ class Category extends AbstractBuilder
 
         return $this->_saveFixture();
     }
-
 }

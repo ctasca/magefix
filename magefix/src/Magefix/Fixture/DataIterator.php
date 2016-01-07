@@ -39,17 +39,10 @@ class DataIterator extends \ArrayIterator
      */
     public function traverse(&$value, $index)
     {
-        $this->_setProvider($index, $value);
-        $value = $this->_invokeProviderMethod($value);
-    }
-
-    /**
-     * @return bool
-     *
-     */
-    protected function _canApply()
-    {
-        return is_callable(call_user_func(array(get_class($this), 'traverse'), $this));
+        if (!is_numeric($index)) {
+            $this->_setProvider($index, $value);
+            $value = $this->_invokeProviderMethod($value);
+        }
     }
 
     /**
@@ -111,7 +104,11 @@ class DataIterator extends \ArrayIterator
      */
     protected function _isReplaceableValue($value)
     {
-        return preg_match('/^\{\{.*?\}\}$/i', $value);
+        if (is_string($value)) {
+            return preg_match('/^\{\{.*?\}\}$/i', $value);
+        }
+        
+        return false;
     }
 
     /**
