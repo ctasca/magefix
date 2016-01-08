@@ -59,7 +59,7 @@ class Product extends AbstractBuilder
             $product = $this->_getMageModel()->load($fixtureId);
 
             if ($product) {
-                MediaGalleryImage::save($product, $this->_getMediaGallery());
+                MediaGalleryImage::save($product, $this->_getMediaGallery(), $save);
             }
 
             MagentoStoreScope::setCurrentStoreScope();
