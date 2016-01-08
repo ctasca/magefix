@@ -5,14 +5,6 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use MageTest\MagentoExtension\Context\MagentoContext;
 use Magefix\Fixtures\Registry as FixturesRegistry;
 use Magefix\Fixture\Factory\Builder as FixtureBuilder;
-use Data\Providers\SimpleProduct;
-use Data\Providers\ConfigurableProduct;
-use Data\Providers\BundleProduct;
-use Data\Providers\Customer;
-use Data\Providers\Category;
-use Data\Providers\SalesOrderGuest;
-use Data\Providers\SalesOrderRegister;
-use Data\Providers\SalesOrderCustomer;
 
 /**
  * Default features context.

@@ -23,7 +23,7 @@ abstract class AbstractBuilder implements Builder
      * @var MagentoModel
      */
     private $_mageModel;
-    
+
     /**
      * @var Provider
      */

@@ -219,13 +219,7 @@ use Magefix\Fixtures\Registry as FixturesRegistry;
 use Magefix\Fixture\Factory\Builder as FixtureBuilder;
 ```
 
-#### 2) Add `use` statement and include needed `Data` providers
-
-```php
-use Data\Providers\SimpleProduct;
-```
-
-#### 3) Add `use` statement for Fixtures `Registry` trait
+#### 2) Add `use` statement for Fixtures `Registry` trait
 
 ```php
 /**
@@ -236,13 +230,11 @@ class FeatureContext extends MagentoContext
     use FixturesRegistry;
 ```
 
-#### 4) Invoke `Builder::build` operation in Behat's Feature class
+#### 3) Invoke `Builder::build` operation in Behat's Feature class
 
 ```php
 FixtureBuilder::build(
-            FixtureBuilder::SIMPLE_PRODUCT_FIXTURE_TYPE, new FixturesLocator(), new SimpleProduct(),
-            'simple-product.yml',
-            '@AfterFeature'
+            FixtureBuilder::SIMPLE_PRODUCT_FIXTURE_TYPE, new FixturesLocator(), 'simple-product.yml', '@AfterFeature'
         );
 ```
 
@@ -263,6 +255,7 @@ After building a fixture, to delete it via a Behat hook, simply provide the hook
 deleted.
 
 ![Image of Data Providers Directory](assets/behatrun-s.png)
+![Image of Data Providers Directory](assets/behat-run-2.png)
 
 ### Available hooks
 
