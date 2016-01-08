@@ -37,7 +37,7 @@ class Mapper
     public static function map($fixtureType)
     {
         if (!isset(self::$_map[$fixtureType])) {
-           throw new UnmappableType("Fixture type '{$fixtureType}' could not be mapped to any Magento model");
+            throw new UnmappableType("Fixture type '{$fixtureType}' could not be mapped to any Magento model");
         }
 
         return self::$_map[$fixtureType];
