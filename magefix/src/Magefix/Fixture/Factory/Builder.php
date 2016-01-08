@@ -4,7 +4,6 @@ namespace Magefix\Fixture\Factory;
 
 use Mage;
 use Magefix\Exceptions\UnknownFixtureType;
-use Magefix\Fixtures\Data\Provider;
 use Magefix\Fixtures\Registry;
 use Magefix\Parser\ResourceLocator;
 use Magefix\Yaml\Parser as YamlParser;
@@ -31,22 +30,22 @@ class Builder
     use Registry;
 
     /**
-     * @param string          $fixtureType
+     * @param string $fixtureType
      * @param ResourceLocator $locator
-     * @param Provider        $dataProvider
-     * @param string          $yamlFilename
-     * @param bool|string     $hook
+     * @param string $yamlFilename
+     * @param bool|string $hook
      *
      * @return int
      * @throws UnknownFixtureType
      * @throws \Magefix\Exceptions\UnavailableHook
      */
     public static function build(
-        $fixtureType, ResourceLocator $locator, Provider $dataProvider, $yamlFilename, $hook = false
-    ) {
-        $parser    = new YamlParser($locator, $yamlFilename);
+        $fixtureType, ResourceLocator $locator, $yamlFilename, $hook = false
+    )
+    {
+        $parser = new YamlParser($locator, $yamlFilename);
         $fixtureData = is_array($parser->parse()) ? $parser->parse() : [];
-        $fixture   = self::instantiateFixture($fixtureType, $dataProvider, $fixtureData, $hook);
+        $fixture = self::instantiateFixture($fixtureType, $fixtureData, $hook);
         $fixtureId = $fixture->build();
 
         if ($hook) {
@@ -59,13 +58,10 @@ class Builder
     /**
      * @param                $fixtureType
      * @param FixtureBuilder $builder
-     * @param array          $entities
-     * @param bool|string    $hook
-     *
+     * @param array $entities
+     * @param bool|string $hook
      * @return array
      * @throws UndefinedFixtureModel
-     * @throws UnknownFixtureType
-     * @throws \Magefix\Exceptions\UnavailableHook
      */
     public static function buildMany($fixtureType, FixtureBuilder $builder, array $entities, $hook = false)
     {
@@ -74,9 +70,8 @@ class Builder
         foreach ($entities as $entity) {
             $builder->throwUndefinedDataProvider($entity);
             $fixtureData = [];
-            $dataProvider           = new $entity['data_provider']();
             $fixtureData['fixture'] = $entity;
-            $fixture                = self::instantiateFixture($fixtureType, $dataProvider, $fixtureData, $hook);
+            $fixture = self::instantiateFixture($fixtureType, $fixtureData, $hook);
 
             $fixtureId = $fixture->build();
 
@@ -97,19 +92,17 @@ class Builder
     }
 
     /**
-     * @param string      $fixtureType
-     * @param Provider    $dataProvider
-     * @param array       $parsedData
+     * @param string $fixtureType
+     * @param array $parsedData
      * @param string|bool $hook
-     *
      * @return CustomerFixture|ProductFixture|null
-     * @throws UnknownFixtureType
+     * @internal param Provider $dataProvider
      */
-    protected static function instantiateFixture($fixtureType, Provider $dataProvider, array $parsedData, $hook)
+    protected static function instantiateFixture($fixtureType, array $parsedData, $hook)
     {
         $mageModel = Mage::getModel($parsedData['fixture']['model']);
         $class = new \ReflectionClass('Magefix\Fixture\Builder\\' . $fixtureType);
-        $fixture = $class->newInstanceArgs([$parsedData, $mageModel, $dataProvider, $hook]);
+        $fixture = $class->newInstanceArgs([$parsedData, $mageModel, $hook]);
 
         return $fixture;
     }

@@ -23,6 +23,7 @@ abstract class AbstractBuilder implements Builder
      * @var MagentoModel
      */
     private $_mageModel;
+
     /**
      * @var Provider
      */
@@ -38,10 +39,9 @@ abstract class AbstractBuilder implements Builder
      */
     protected $_data;
 
-    public function __construct(array $parserData, MagentoModel $model, Provider $dataProvider, $hook)
+    public function __construct(array $parserData, MagentoModel $model, $hook)
     {
         $this->_mageModel    = $model;
-        $this->_dataProvider = $dataProvider;
         $this->_data         = $parserData;
         $this->_hook         = $hook;
     }
@@ -123,6 +123,12 @@ abstract class AbstractBuilder implements Builder
      */
     protected function _getDataProvider()
     {
+        $this->_throwUndefinedDataProvider($this->_data['fixture']);
+
+        if (is_null($this->_dataProvider)) {
+            $dataProvider = new \ReflectionClass($this->_data['fixture']['data_provider']);
+            $this->_dataProvider = $dataProvider->newInstance();
+        }
         return $this->_dataProvider;
     }
 

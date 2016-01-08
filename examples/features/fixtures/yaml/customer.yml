@@ -1,5 +1,6 @@
 fixture:
     model: customer/customer
+    data_provider: 'Data\Providers\Customer'
     attributes:
         website_id: '{{getWebsiteId}}'
         store: '{{getStore}}'
