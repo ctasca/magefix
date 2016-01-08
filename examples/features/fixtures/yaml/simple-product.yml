@@ -1,5 +1,6 @@
 fixture:
     model: catalog/product
+    data_provider: 'Data\Providers\SimpleProduct'
     attributes:
         name: 'Simple Product Fixture'
         description: 'Long Description'

@@ -1,5 +1,6 @@
 fixture:
     model: catalog/product
+    data_provider: 'Data\Providers\BundleProduct'
     attributes:
         name: 'Bundle Product Fixture'
         description: 'Long Description'

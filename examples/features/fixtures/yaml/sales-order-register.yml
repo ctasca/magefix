@@ -1,5 +1,6 @@
 fixture:
     model: sales/quote
+    data_provider: 'Data\Providers\SalesOrderRegister'
     attributes:
         store_id: '{{getStoreId}}'
     quote_products:

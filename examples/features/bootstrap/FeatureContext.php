@@ -1,0 +1,241 @@
+<?php
+
+use Behat\Behat\Tester\Exception\PendingException;
+use Behat\Behat\Context\SnippetAcceptingContext;
+use MageTest\MagentoExtension\Context\MagentoContext;
+use Magefix\Fixtures\Registry as FixturesRegistry;
+use Magefix\Fixture\Factory\Builder as FixtureBuilder;
+use Data\Providers\SimpleProduct;
+use Data\Providers\ConfigurableProduct;
+use Data\Providers\BundleProduct;
+use Data\Providers\Customer;
+use Data\Providers\Category;
+use Data\Providers\SalesOrderGuest;
+use Data\Providers\SalesOrderRegister;
+use Data\Providers\SalesOrderCustomer;
+
+/**
+ * Default features context.
+ */
+class FeatureContext extends MagentoContext implements SnippetAcceptingContext
+{
+    use FixturesRegistry;
+
+    /**
+     * @Given I setup a product fixture
+     */
+    public function iSetupAProductFixture()
+    {
+        $this->_buildProductFixture();
+    }
+
+
+    /**
+     * @Given I setup a customer fixture
+     */
+    public function iSetupACustomerFixture()
+    {
+        $this->_buildCustomerFixture();
+    }
+
+
+    /**
+     * @Given I setup a customer fixture with address
+     */
+    public function iSetupACustomerWithAddress()
+    {
+        $this->_buildCustomerWithAddressFixture();
+    }
+
+    /**
+     * @Given I setup a product fixture with media
+     */
+    public function iSetupAProductWithMedia()
+    {
+        $this->_buildProductWithMediaFixture();
+    }
+
+    /**
+     * @Given I setup a category fixture
+     */
+    public function iSetupACategoryFixture()
+    {
+        $this->_buildCategoryFixture();
+    }
+
+
+    /**
+     * @Given I setup a configurable product fixture
+     */
+    public function iSetupAConfigurableProductFixture()
+    {
+        $this->_buildConfigurableProductFixture();
+    }
+
+    /**
+     * @Given I setup a bundle product fixture
+     */
+    public function iSetupABundleProductFixture()
+    {
+        $this->_buildBundleProductFixture();
+    }
+
+
+    /**
+     * @Given I setup a guest sales order fixture
+     */
+    public function iSetupAGuestSalesOrderFixture()
+    {
+        $this->_buildGuestSalesOrderFixture();
+    }
+
+    /**
+     * @BeforeScenario
+     */
+    public function beforeScenario()
+    {
+        $this->_buildRegisterSalesOrderFixture();
+    }
+
+    /**
+     * @Given I setup a register sales order fixture
+     */
+    public function iSetupARegisterSalesOrderFixture()
+    {
+        $this->_buildRegisterSalesOrderFixture();
+    }
+
+    /**
+     * @Given I setup a customer sales order fixture
+     */
+    public function iSetupACustomerSalesOrderFixture()
+    {
+        $this->_buildCustomerSalesOrderFixture();
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildProductFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::SIMPLE_PRODUCT_FIXTURE_TYPE, new FixturesLocator(), 'simple-product.yml', '@AfterFeature'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildProductWithMediaFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::SIMPLE_PRODUCT_FIXTURE_TYPE, new FixturesLocator(), 'simple-product-with-media.yml',
+            '@AfterScenario'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildProductStepFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::SIMPLE_PRODUCT_FIXTURE_TYPE, new FixturesLocator(), new SimpleProduct(),
+            'simple-product.yml',
+            '@AfterStep'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildCustomerFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::CUSTOMER_FIXTURE_TYPE, new FixturesLocator(), 'customer.yml', '@AfterFeature'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildCustomerWithAddressFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::CUSTOMER_FIXTURE_TYPE, new FixturesLocator(), 'customer-with-address.yml', '@AfterFeature'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildCategoryFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::CATEGORY_FIXTURE_TYPE, new FixturesLocator(), 'category.yml', '@AfterFeature'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildConfigurableProductFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::CONFIGURABLE_PRODUCT_FIXTURE_TYPE, new FixturesLocator(), 'configurable-product.yml',
+            '@AfterFeature'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildBundleProductFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::BUNDLE_PRODUCT_FIXTURE_TYPE, new FixturesLocator(), 'bundle-product.yml', '@AfterFeature'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildGuestSalesOrderFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::SALES_ORDER_FIXTURE_TYPE, new FixturesLocator(), 'sales-order-guest.yml', '@AfterFeature'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildRegisterSalesOrderFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::SALES_ORDER_FIXTURE_TYPE, new FixturesLocator(), 'sales-order-register.yml',
+            '@BeforeScenario'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildCustomerSalesOrderFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::SALES_ORDER_FIXTURE_TYPE, new FixturesLocator(), 'sales-order-customer.yml', '@AfterSuite'
+        );
+    }
+}
