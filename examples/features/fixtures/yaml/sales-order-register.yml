@@ -1,5 +1,6 @@
 fixture:
     model: sales/quote
+    data_provider: 'Data\Providers\SalesOrderRegister'
     attributes:
         store_id: '{{getStoreId}}'
     quote_products:
@@ -27,7 +28,8 @@ fixture:
                         is_in_stock: 1
                         manage_stock: 1
     checkout:
-        # either 'guest', 'register' or 'customer'
+        data_provider: 'Data\Providers\SalesOrderRegister'
+        # either 'guest', 'register' or 'customer
         method: '{{getCheckoutMethod}}'
         customer:
             model: customer/customer
@@ -44,7 +46,7 @@ fixture:
     addresses:
         # 'billing_and_shipping' or 'billing' and 'shipping'
         billing_and_shipping:
-            email: "{{getCustomerEmail}}"
+            email: '{{getCustomerEmail}}'
             firstname: 'Batman'
             lastname: 'Robin'
             street: '12 Headcorn'

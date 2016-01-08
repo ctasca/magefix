@@ -118,7 +118,42 @@ Simply, `Data Providers` are data-objects and should be added to the `features/f
 specified in the fixture's yml being parsed. A `ProviderMethodNotFound` exception is thrown if specified Data Provider 
 does not have one or more methods as part of their protocol.
 
-![Image of Data Providers Directory](assets/data-providers-structure.png)
+It is possible to switch data provider in scope in a fixtures's yml definitions, thus allowing to re-use existing
+data providers. For example, when creating a Sales Order fixture, we may want to also create a product and customer fixture.
+
+```yml
+fixture:
+    model: sales/quote
+    attributes:
+        store_id: '{{getStoreId}}'
+    quote_products:
+        products:
+            0:
+                model: catalog/product
+                data_provider: 'Data\Providers\SimpleProduct'
+                attributes:
+                    name: 'Simple Product Fixture'
+                    description: 'Long Description'
+                    short_description: 'Short Description'
+                    weight: 10
+                    status: 1
+                    visibility: 4
+                    price: 100.00
+                    tax_class_id: 0
+                    website_ids: '{{getWebsiteIds}}'
+                    attribute_set_id : '{{getDefaultAttributeSetId}}'
+                    category_ids: '{{getCategoryIds}}'
+                    type_id: '{{getTypeId}}'
+                    sku: '{{getSku}}'
+                stock:
+                    stock_data:
+                        qty: 10
+                        is_in_stock: 1
+                        manage_stock: 1
+    checkout:
+        data_provider: 'Data\Providers\SalesOrderCustomer'
+```
+
 
 An example of a Data Provider:
 
@@ -184,13 +219,7 @@ use Magefix\Fixtures\Registry as FixturesRegistry;
 use Magefix\Fixture\Factory\Builder as FixtureBuilder;
 ```
 
-#### 2) Add `use` statement and include needed `Data` providers
-
-```php
-use Data\Providers\SimpleProduct;
-```
-
-#### 3) Add `use` statement for Fixtures `Registry` trait
+#### 2) Add `use` statement for Fixtures `Registry` trait
 
 ```php
 /**
@@ -201,13 +230,11 @@ class FeatureContext extends MagentoContext
     use FixturesRegistry;
 ```
 
-#### 4) Invoke `Builder::build` operation in Behat's Feature class
+#### 3) Invoke `Builder::build` operation in Behat's Feature class
 
 ```php
 FixtureBuilder::build(
-            FixtureBuilder::SIMPLE_PRODUCT_FIXTURE_TYPE, new FixturesLocator(), new SimpleProduct(),
-            'simple-product.yml',
-            '@AfterFeature'
+            FixtureBuilder::SIMPLE_PRODUCT_FIXTURE_TYPE, new FixturesLocator(), 'simple-product.yml', '@AfterFeature'
         );
 ```
 
@@ -228,6 +255,7 @@ After building a fixture, to delete it via a Behat hook, simply provide the hook
 deleted.
 
 ![Image of Data Providers Directory](assets/behatrun-s.png)
+![Image of Data Providers Directory](assets/behat-run-2.png)
 
 ### Available hooks
 

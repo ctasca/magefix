@@ -1,5 +1,6 @@
 fixture:
     model: catalog/product
+    data_provider: 'Data\Providers\ConfigurableProduct'
     attributes:
         name: 'Configurable Product Fixture'
         description: 'Long Description'

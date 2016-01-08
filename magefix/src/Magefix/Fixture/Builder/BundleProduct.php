@@ -5,7 +5,6 @@ namespace Magefix\Fixture\Builder;
 use Magefix\Exceptions\UndefinedBundleOptions;
 use Magefix\Exceptions\UndefinedBundleProducts;
 use Magefix\Exceptions\UndefinedFixtureModel;
-use Magefix\Fixture\Factory\Builder as FixtureBuilder;
 use Mage;
 use Magefix\Magento\Store\Scope as MagentoStoreScope;
 
