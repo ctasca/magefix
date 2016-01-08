@@ -5,6 +5,7 @@ namespace Magefix\Fixtures;
 use Mage;
 use Mage_Core_Model_Abstract;
 use Magefix\Fixture\Factory\Builder;
+use Magefix\Magento\Model\Mapper;
 
 /**
  * Class RegistryIterator
@@ -35,27 +36,12 @@ class RegistryIterator extends \ArrayObject
 
     /**
      * @param string $match
-     *
-     * @return \Mage_Catalog_Model_Category|\Mage_Catalog_Model_Product|\Mage_Customer_Model_Customer|\Mage_Sales_Model_Order|null
-     *
+     * @return Mage_Core_Model_Abstract
      */
     public function getMageModelForMatch($match)
     {
-        $model = null;
-
-        if ($match == Builder::SIMPLE_PRODUCT_FIXTURE_TYPE || $match == Builder::CONFIGURABLE_PRODUCT_FIXTURE_TYPE
-            || $match == Builder::BUNDLE_PRODUCT_FIXTURE_TYPE
-        ) {
-            $model = Mage::getModel('catalog/product');
-        } elseif ($match == Builder::CATEGORY_FIXTURE_TYPE) {
-            $model = Mage::getModel('catalog/category');
-        } elseif ($match == Builder::CUSTOMER_FIXTURE_TYPE) {
-            $model = Mage::getModel('customer/customer');
-        } elseif ($match == Builder::SALES_ORDER_FIXTURE_TYPE) {
-            $model = Mage::getModel('sales/order');
-        }
-
-        return $model;
+        $model = Mapper::map($match);
+        return Mage::getModel($model);
     }
 
     /**
@@ -67,14 +53,7 @@ class RegistryIterator extends \ArrayObject
      */
     public function isEntryMatch($hook, $key)
     {
-        $matches = [];
-        $matchOr = Builder::SIMPLE_PRODUCT_FIXTURE_TYPE . '|' . Builder::BUNDLE_PRODUCT_FIXTURE_TYPE
-            . '|' . Builder::CONFIGURABLE_PRODUCT_FIXTURE_TYPE . '|' . Builder::CUSTOMER_FIXTURE_TYPE
-            . '|' . Builder::CATEGORY_FIXTURE_TYPE . '|' . Builder::SALES_ORDER_FIXTURE_TYPE;
-
-        preg_match("/^({$matchOr})_{$hook}/", $key, $matches);
-
-        return $matches;
+       return RegistryEntryMatcher::match($hook, $key);
     }
 
     /**
