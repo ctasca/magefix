@@ -34,7 +34,7 @@ final class Builder implements Typeable
      * @throws UnknownFixtureType
      * @throws \Magefix\Exceptions\UnavailableHook
      */
-    public static function build($fixtureType, ResourceLocator $locator, $yamlFilename, $hook = false)
+    public static function build($fixtureType, ResourceLocator $locator, $yamlFilename, $hook = '')
     {
         $parser = new YamlParser($locator, $yamlFilename);
         $fixtureData = is_array($parser->parse()) ? $parser->parse() : [];
@@ -52,17 +52,17 @@ final class Builder implements Typeable
      * @param $fixtureType
      * @param FixtureBuilder $builder
      * @param array $entities
-     * @param bool $hook
+     * @param string $hook
      * @return array
      * @throws UndefinedFixtureModel
      */
-    public static function buildMany($fixtureType, FixtureBuilder $builder, array $entities, $hook = false)
+    public static function buildMany($fixtureType, FixtureBuilder $builder, array $entities, $hook = '')
     {
         $many = [];
 
         $iterator = new \ArrayIterator($entities);
 
-        while($iterator->valid()) {
+        while ($iterator->valid()) {
             $builder->throwUndefinedDataProvider($iterator->current());
             $fixtureId = self::_buildAndRegisterFixture($fixtureType, $hook, $iterator->current());
             $many[] = self::_getMagentoModel($iterator->current(), $fixtureId);

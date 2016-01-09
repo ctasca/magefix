@@ -22,7 +22,7 @@ class Product extends AbstractBuilder
     public function build()
     {
         $mergedData = $this->_beforeBuild();
-        $fixtureId  = $this->_saveFixtureWithModelAndData($this->_getMageModel(), $mergedData);
+        $fixtureId = $this->_saveFixtureWithModelAndData($this->_getMageModel(), $mergedData);
 
         $this->_addMediaGalleryImage($fixtureId);
 

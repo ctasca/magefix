@@ -11,5 +11,6 @@ namespace Magefix;
 interface Parser
 {
     public function parse();
+
     public function getMageModel();
 }

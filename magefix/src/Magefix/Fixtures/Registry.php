@@ -8,6 +8,7 @@ use Magefix\Fixture\Factory\Builder as FixtureBuilder;
 use Magefix\Exceptions\UnavailableHook;
 use Magefix\Exceptions\NullFixtureId;
 use Magefix\Behat\Hook;
+
 /**
  * Class Registry
  *
@@ -34,7 +35,7 @@ trait Registry
      * Register a new variable
      *
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @throws Mage_Core_Exception
      */
@@ -127,7 +128,7 @@ trait Registry
      */
     protected static function _cleanupFixtureByHook($hook)
     {
-        $registry         = self::_getBuilderRegistry();
+        $registry = self::_getBuilderRegistry();
         $registryIterator = new RegistryIterator($registry);
         MagentoStoreScope::setAdminStoreScope();
         $registryIterator->iterateByHook($hook);
@@ -166,7 +167,7 @@ trait Registry
         $environment = $scope->getEnvironment();
 
         foreach ($environment->getContextClasses() as $class) {
-            $name                   = strtolower(preg_replace('~.*\\\\(\w+)Context~', '\1', $class));
+            $name = strtolower(preg_replace('~.*\\\\(\w+)Context~', '\1', $class));
             $this->_contexts[$name] = $environment->getContext($class);
         }
     }

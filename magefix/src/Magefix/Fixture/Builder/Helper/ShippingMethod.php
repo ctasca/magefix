@@ -83,7 +83,7 @@ class ShippingMethod implements Helper
 
     /**
      * @param string $carrier
-     * @param int    $enable
+     * @param int $enable
      */
     protected static function _enableOrDisable($carrier, $enable)
     {

@@ -26,8 +26,8 @@ class ShippingAddress implements Helper
 
     public function __construct(AbstractBuilder $_builder, Mage_Sales_Model_Quote $_quote, array $_data)
     {
-        $this->_quote   = $_quote;
-        $this->_data    = $_data;
+        $this->_quote = $_quote;
+        $this->_data = $_data;
         $this->_builder = $_builder;
     }
 

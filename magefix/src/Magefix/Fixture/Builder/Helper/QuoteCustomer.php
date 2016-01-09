@@ -33,8 +33,8 @@ class QuoteCustomer implements Helper
     {
 
         $this->_builder = $_builder;
-        $this->_quote   = $_quote;
-        $this->_data    = $_data;
+        $this->_quote = $_quote;
+        $this->_data = $_data;
     }
 
     public function setupMethodGuest()
@@ -44,7 +44,7 @@ class QuoteCustomer implements Helper
             ->setCustomerIsGuest(true)
             ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
     }
-    
+
     public function setupMethodRegister()
     {
         $this->_setupCustomerOptionalData();
@@ -77,7 +77,7 @@ class QuoteCustomer implements Helper
 
         return $dob;
     }
-    
+
     private function _setupCustomerDataAndValidate()
     {
         $customer = Mage::getModel($this->_data['model']);
