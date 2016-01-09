@@ -2,9 +2,9 @@
 
 namespace Magefix\Fixture\Builder;
 
-use FixturesLocator;
-use Mage;
 use Magefix\Fixture\Builder\Helper\ApiUser as ApiUserHelper;
+use Magefix\Fixture\Factory\Builder;
+use Magefix\Fixture\Instanciator;
 
 /**
  * Class ApiUser
@@ -39,10 +39,9 @@ class ApiUser extends AbstractBuilder
     protected function _buildApiRoleFixture()
     {
         $roleBuilderData = [];
-        $roleModel = Mage::getModel($this->_data['fixture']['api_role']['model']);
         $roleBuilderData['fixture'] = $this->_data['fixture']['api_role'];
-        $role = new ApiRole($roleBuilderData, $roleModel, $this->_getHook());
-        $roleId = $role->buildAndRegister();
+        $fixture = Instanciator::instance(Builder::API_ROLE_FIXTURE_TYPE, $roleBuilderData, $this->_getHook());
+        $roleId = $fixture->buildAndRegister();
         return $roleId;
     }
 }
