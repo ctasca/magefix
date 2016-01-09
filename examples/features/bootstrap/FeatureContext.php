@@ -114,6 +114,14 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
     }
 
     /**
+     * @Given I setup a grouped product fixture
+     */
+    public function iSetupAGroupedProductFixture()
+    {
+        $this->_buildGroupedProductFixture();
+    }
+
+    /**
      *
      * @throws Exception
      */
@@ -248,6 +256,17 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
     {
         FixtureBuilder::build(
             FixtureBuilder::API_USER_FIXTURE_TYPE, new FixturesLocator(), 'api-user.yml', '@AfterSuite'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildGroupedProductFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::GROUPED_PRODUCT_FIXTURE_TYPE, new FixturesLocator(), 'grouped-product.yml', '@AfterScenario'
         );
     }
 }
