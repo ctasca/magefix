@@ -21,7 +21,8 @@ class Mapper
         Builder::CATEGORY_FIXTURE_TYPE => 'catalog/category',
         Builder::CUSTOMER_FIXTURE_TYPE => 'customer/customer',
         Builder::SALES_ORDER_FIXTURE_TYPE => 'sales/order',
-        Builder::API_USER_FIXTURE_TYPE => 'api/user'
+        Builder::API_ROLE_FIXTURE_TYPE => 'api/roles',
+        Builder::API_USER_FIXTURE_TYPE => 'api/user',
     ];
 
     public static function getMap()

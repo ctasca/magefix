@@ -12,5 +12,22 @@ use Magefix\Fixtures\Data\Provider;
  */
 class ApiUser implements Provider
 {
+    public function getUsername()
+    {
+        $random = substr(md5(rand()), 0, 5);
 
+        return 'apiuser' . $random;
+    }
+
+    public function getApiUserEmail()
+    {
+        $random = substr(md5(rand()), 0, 7);
+
+        return 'apiuser' . $random . '@fixture.com';
+    }
+
+    public function getApiKey()
+    {
+        return 'apikeypass';
+    }
 }

@@ -14,5 +14,6 @@ interface Typeable
     const SALES_ORDER_FIXTURE_TYPE = 'SalesOrder';
     const CATEGORY_FIXTURE_TYPE = 'Category';
     const CUSTOMER_FIXTURE_TYPE = 'Customer';
+    const API_ROLE_FIXTURE_TYPE = 'ApiRole';
     const API_USER_FIXTURE_TYPE = 'ApiUser';
 }
