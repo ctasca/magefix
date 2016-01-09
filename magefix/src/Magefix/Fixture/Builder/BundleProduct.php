@@ -4,8 +4,10 @@ namespace Magefix\Fixture\Builder;
 
 use Magefix\Exceptions\UndefinedBundleOptions;
 use Magefix\Exceptions\UndefinedBundleProducts;
+use Magefix\Exceptions\UndefinedBundleSelections;
 use Magefix\Exceptions\UndefinedFixtureModel;
 use Mage;
+use Magefix\Fixture\Builder\Helper\BundleSelectionsIterator;
 use Magefix\Magento\Store\Scope as MagentoStoreScope;
 
 /**
@@ -34,19 +36,15 @@ class BundleProduct extends Product
     public function build()
     {
         $mergedData = $this->_beforeBuild();
-
         $this->_getMageModel()->setData($mergedData);
-
         $fixtureId = $this->_saveFixture();
 
         return $fixtureId;
     }
 
     /**
-     *
      * @return mixed
-     * @throws ProductMediaGalleryImageNotFound
-     *
+     * @throws \Exception
      */
     protected function _saveFixture()
     {
@@ -68,11 +66,7 @@ class BundleProduct extends Product
     }
 
     /**
-     * @throws UndefinedAssociatedProducts
-     * @throws UndefinedFixtureModel
-     * @throws ProductMediaGalleryImageNotFound
-     * @throws UnavailableHook
-     *
+     * @throws UndefinedBundleProducts
      */
     protected function _buildBundleProductsFixtures()
     {
@@ -93,23 +87,14 @@ class BundleProduct extends Product
 
     /**
      * @throws UndefinedBundleSelections
-     *
      */
     protected function _setBundleSelections()
     {
         $this->_throwUndefinedBundleSelections();
         $this->_bundleSelections = $this->_data['fixture']['bundle_selections'];
-
-        foreach ($this->_bundleSelections as &$selections) {
-            foreach ($selections as &$selection) {
-                if (isset($selection['product_id'])) {
-                    $productId = trim($selection['product_id'], '#');
-                    if (is_numeric($productId) && isset($this->_bundleProducts[$productId])) {
-                        $selection['product_id'] = $this->_bundleProducts[$productId]->getId();
-                    }
-                }
-            }
-        }
+        $iterator = new BundleSelectionsIterator($this->_bundleSelections);
+        $iterator->setBundleProducts($this->_bundleProducts);
+        $this->_bundleSelections = $iterator->apply();
     }
 
     /**

@@ -49,8 +49,8 @@ class EavAttribute implements Helper
      */
     public static function getOptionValueByLabel($entityType, $attributeCode, $optionLabel)
     {
-        $attribute   = self::getAttributeEntity($entityType, $attributeCode);
-        $options     = Mage::getModel('eav/entity_attribute_source_table')
+        $attribute = self::getAttributeEntity($entityType, $attributeCode);
+        $options = Mage::getModel('eav/entity_attribute_source_table')
             ->setAttribute($attribute)
             ->getAllOptions(false);
 

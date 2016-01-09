@@ -106,6 +106,14 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
     }
 
     /**
+     * @Given I setup an api user fixture
+     */
+    public function iSetupAnApiUserFixture()
+    {
+        $this->_buildApiUserFixture();
+    }
+
+    /**
      *
      * @throws Exception
      */
@@ -228,6 +236,18 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
     {
         FixtureBuilder::build(
             FixtureBuilder::SALES_ORDER_FIXTURE_TYPE, new FixturesLocator(), 'sales-order-customer.yml', '@AfterSuite'
+        );
+    }
+
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildApiUserFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::API_USER_FIXTURE_TYPE, new FixturesLocator(), 'api-user.yml', '@AfterSuite'
         );
     }
 }

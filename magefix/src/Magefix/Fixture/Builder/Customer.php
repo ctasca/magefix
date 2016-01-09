@@ -22,7 +22,7 @@ class Customer extends AbstractBuilder
     {
         $this->iterateFixture();
         $defaultData = $this->_getMageModelData() ? $this->_getMageModelData() : [];
-        $mergedData  = array_merge($defaultData, $this->_getFixtureAttributes());
+        $mergedData = array_merge($defaultData, $this->_getFixtureAttributes());
 
         $this->_getMageModel()->setData($mergedData);
 

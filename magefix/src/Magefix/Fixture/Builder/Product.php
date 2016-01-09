@@ -2,10 +2,9 @@
 
 namespace Magefix\Fixture\Builder;
 
-use Mage_Core_Model_Abstract;
+use Magefix\Fixture\Builder\Helper\MediaGalleryImage;
 use Magefix\Magento\Store\Scope as MagentoStoreScope;
 use Magefix\Exceptions\UndefinedStockData;
-use Magefix\Exceptions\ProductMediaGalleryImageNotFound;
 
 /**
  * Class Product
@@ -23,7 +22,7 @@ class Product extends AbstractBuilder
     public function build()
     {
         $mergedData = $this->_beforeBuild();
-        $fixtureId  = $this->_saveFixtureWithModelAndData($this->_getMageModel(), $mergedData);
+        $fixtureId = $this->_saveFixtureWithModelAndData($this->_getMageModel(), $mergedData);
 
         $this->_addMediaGalleryImage($fixtureId);
 
@@ -32,9 +31,6 @@ class Product extends AbstractBuilder
 
     /**
      * @param $fixtureId
-     *
-     * @throws ProductMediaGalleryImageNotFound
-     *
      */
     public function addMediaGalleryImage($fixtureId)
     {
@@ -52,11 +48,9 @@ class Product extends AbstractBuilder
     }
 
     /**
-     * @param      $fixtureId
+     * @param $fixtureId
      * @param bool $save
-     *
-     * @throws ProductMediaGalleryImageNotFound exception
-     * @throws \Exception
+     * @throws \Magefix\Exceptions\ProductMediaGalleryImageNotFound
      */
     protected function _addMediaGalleryImage($fixtureId, $save = true)
     {
@@ -65,21 +59,7 @@ class Product extends AbstractBuilder
             $product = $this->_getMageModel()->load($fixtureId);
 
             if ($product) {
-                $gallery = $this->_getMediaGallery();
-
-                if (!@file_exists($gallery['image'])) {
-                    throw new ProductMediaGalleryImageNotFound(
-                        'Specified product fixture gallery image does not exists -> ' . $gallery['image']
-                    );
-                }
-
-                $product->addImageToMediaGallery(
-                    $gallery['image'], ['image', 'thumbnail', 'small_image'], false, false
-                );
-
-                if ($save) {
-                    $product->save();
-                }
+                MediaGalleryImage::save($product, $this->_getMediaGallery(), $save);
             }
 
             MagentoStoreScope::setCurrentStoreScope();

@@ -13,6 +13,7 @@ use Magefix\Fixture\Builder\Helper\QuoteCustomer;
 use Magefix\Fixture\Builder\Helper\ShippingAddress;
 use Magefix\Fixture\Builder\Helper\ShippingMethod;
 use Magefix\Fixture\Factory\Builder;
+use Magefix\Fixture\Factory\ManyBuilder;
 
 /**
  * Class SalesOrder

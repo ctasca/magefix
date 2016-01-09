@@ -1,0 +1,18 @@
+fixture:
+  model: api/user
+  data_provider: 'Data\Providers\ApiUser'
+  attributes:
+    username: '{{getUsername}}'
+    firstname: 'Batman'
+    lastname: 'Robin'
+    email: '{{getApiUserEmail}}'
+    api_key: '{{getApiKey}}'
+    api_key_confirmation: '{{getApiKey}}'
+    is_active: 1
+  api_role:
+    model: api/roles
+    data_provider: 'Data\Providers\ApiRole'
+    attributes:
+      name: '{{getName}}'
+      pid: false
+      role_type: '{{getRoleType}}'

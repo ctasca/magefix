@@ -1,0 +1,7 @@
+fixture:
+  model: api/roles
+  data_provider: 'Data\Providers\ApiRole'
+  attributes:
+    name: '{{getName}}'
+    pid: false
+    role_type: '{{getRoleType}}'

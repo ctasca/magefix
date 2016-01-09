@@ -41,9 +41,9 @@ abstract class AbstractBuilder implements Builder
 
     public function __construct(array $parserData, MagentoModel $model, $hook)
     {
-        $this->_mageModel    = $model;
-        $this->_data         = $parserData;
-        $this->_hook         = $hook;
+        $this->_mageModel = $model;
+        $this->_data = $parserData;
+        $this->_hook = $hook;
     }
 
     /**
@@ -206,14 +206,15 @@ abstract class AbstractBuilder implements Builder
 
     /**
      * @param boolean $isSet
-     * @param string  $message
+     * @param string $message
      *
      * @throws UndefinedAttributes
      *
      */
     protected function _throwUndefinedAttributesException(
         $isSet, $message = 'Fixture attributes have not been defined. Check fixture yml file.'
-    ) {
+    )
+    {
         if (!$isSet) {
             throw new UndefinedAttributes($message);
         }
