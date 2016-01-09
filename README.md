@@ -7,6 +7,7 @@ A library to facilitate the creation of Magento fixtures for BehatMage. The foll
 - Simple Product
 - Configurable Product
 - Bundle Product
+- Grouped Product
 - Sales Order type Guest
 - Sales Order type Register
 - Sales Order type Customer
@@ -256,7 +257,10 @@ Available Builder's fixture type constants:
 - `Builder::CATEGORY_FIXTURE_TYPE`
 - `Builder::CONFIGURABLE_PRODUCT_FIXTURE_TYPE`
 - `Builder::BUNDLE_PRODUCT_FIXTURE_TYPE`
+- `Builder::GROUPED_PRODUCT_FIXTURE_TYPE`
 - `Builder::SALES_ORDER_FIXTURE_TYPE`
+- `Builder::API_ROLE_FIXTURE_TYPE`
+- `Builder::API_USER_FIXTURE_TYPE`
 
 ## Cleaning Fixtures
 

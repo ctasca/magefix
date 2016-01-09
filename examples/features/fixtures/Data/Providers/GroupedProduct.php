@@ -8,12 +8,12 @@ use Magefix\Fixture\Builder\Helper\AttributeSet;
 use Magefix\Fixtures\Data\Provider;
 
 /**
- * Class BundleProduct
+ * Class GroupedProduct
  *
  * @package Data\Providers
  * @author  Carlo Tasca <ctasca@sessiondigital.com>
  */
-class BundleProduct implements Provider
+class GroupedProduct implements Provider
 {
     public function getWebsiteIds()
     {
@@ -44,7 +44,7 @@ class BundleProduct implements Provider
 
     public function getTypeId()
     {
-        return Mage_Catalog_Model_Product_Type::TYPE_BUNDLE;
+        return Mage_Catalog_Model_Product_Type::TYPE_GROUPED;
     }
 
     public function getFixtureImage()
