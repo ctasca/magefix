@@ -21,7 +21,7 @@ class Category extends AbstractBuilder
             throw new NullCategoryParentId('Category fixture require parent_id. Check fixture yaml file.');
         }
 
-        $parentCategory = $this->_getMageModel()->load((int)$fixtureData['parent_id']);
+        $parentCategory = $this->_getMageModel()->load((int) $fixtureData['parent_id']);
         $parentCategoryPath = $parentCategory->getPath();
         unset($fixtureData['parent_id']);
         $fixture = $this->_getMageModel()->setData($fixtureData);

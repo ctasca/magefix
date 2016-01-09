@@ -92,7 +92,7 @@ class ConfigurableProduct extends Product
                     [
                         'attribute_id' => $usedProductAttributeId,
                         'label' => $product->getAttributeText($code),
-                        'value_index' => (int)$product->getData($code),
+                        'value_index' => (int) $product->getData($code),
                         'is_percent' => 0,
                         'pricing_value' => $product->getPrice(),
                         'simple_product_id' => $product->getId()
