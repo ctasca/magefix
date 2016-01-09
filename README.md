@@ -1,6 +1,17 @@
 # Magefix - Magento's Behat Fixtures Library
 
-A library to create Magento fixtures for Behat.
+A library to facilitate the creation of Magento fixtures for BehatMage. The following fixture types are currently available:
+
+- Category
+- Customer
+- Simple Product
+- Configurable Product
+- Bundle Product
+- Sales Order type Guest
+- Sales Order type Register
+- Sales Order type Customer
+- Api Role
+- Api User
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ctasca/magefix/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/ctasca/magefix/?branch=develop) [![Build Status](https://scrutinizer-ci.com/g/ctasca/magefix/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/ctasca/magefix/build-status/develop)
 
