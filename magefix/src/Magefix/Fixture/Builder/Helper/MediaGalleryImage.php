@@ -3,13 +3,14 @@
 namespace Magefix\Fixture\Builder\Helper;
 
 use Magefix\Exceptions\ProductMediaGalleryImageNotFound;
+use Magefix\Fixture\Builder\Helper;
 
 /**
  * Class MediaGalleryImage
  * @package Magefix\Fixture\Builder\Helper
  * @author Carlo Tasca <ctasca@sessiondigital.com>
  */
-class MediaGalleryImage
+class MediaGalleryImage implements Helper
 {
     /**
      * @param \Mage_Core_Model_Abstract $product
