@@ -20,6 +20,18 @@ class ApiRole extends AbstractBuilder
         $this->iterateFixture();
 
         $fixtureId = ApiRoleHelper::create($this->_data['fixture']['attributes']);
+
+        return $fixtureId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function buildAndRegister()
+    {
+        $this->iterateFixture();
+
+        $fixtureId = ApiRoleHelper::create($this->_data['fixture']['attributes']);
         Builder::registerFixture(Builder::API_ROLE_FIXTURE_TYPE, $fixtureId, $this->_getHook());
 
         return $fixtureId;
