@@ -1,0 +1,143 @@
+fixture:
+    model: catalog/product
+    data_provider: 'Data\Providers\GroupedProduct'
+    attributes:
+        name: 'Grouped Product Fixture'
+        description: 'Long Description'
+        short_description: 'Short Description'
+        weight: 10
+        status: 1
+        price: 0
+        weight_type: 0
+        tax_class_id: 0
+        visibility: '{{getVisibility}}'
+        website_ids: '{{getWebsiteIds}}'
+        attribute_set_id : '{{getClothingAttributeSetId}}'
+        category_ids: '{{getCategoryIds}}'
+        type_id: '{{getTypeId}}'
+        sku: '{{getSku}}'
+        sku_type: 0
+    stock:
+        stock_data:
+            qty: 1000
+            is_in_stock: 1
+            manage_stock: 0
+    media:
+        gallery:
+            image: '{{getFixtureImage}}'
+    grouped_products:
+        products:
+            0:
+                model: catalog/product
+                data_provider: 'Data\Providers\BundleSimpleProduct'
+                attributes:
+                    name: 'Simple Product Fixture'
+                    description: 'Long Description'
+                    short_description: 'Short Description'
+                    weight: 10
+                    status: 1
+                    visibility: '{{getVisibility}}'
+                    price: 500.00
+                    tax_class_id: 0
+                    website_ids: '{{getWebsiteIds}}'
+                    attribute_set_id : '{{getClothingAttributeSetId}}'
+                    category_ids: '{{getCategoryIds}}'
+                    type_id: '{{getTypeId}}'
+                    sku: '{{getSku}}'
+                    color: '{{getBlueColorOptionId}}'
+                    size: '{{getXLSizeOptionId}}'
+                    apparel_type: '{{getDenimOptionId}}'
+                stock:
+                    stock_data:
+                        qty: 20
+                        is_in_stock: 1
+                        manage_stock: 0
+                media:
+                    gallery:
+                        image: '{{getFixtureImage}}'
+
+            1:
+                model: catalog/product
+                data_provider: 'Data\Providers\BundleSimpleProduct'
+                attributes:
+                    name: 'Simple Product Fixture'
+                    description: 'Long Description'
+                    short_description: 'Short Description'
+                    weight: 10
+                    status: 1
+                    visibility: '{{getVisibility}}'
+                    price: 120.00
+                    tax_class_id: 0
+                    website_ids: '{{getWebsiteIds}}'
+                    attribute_set_id : '{{getClothingAttributeSetId}}'
+                    category_ids: '{{getCategoryIds}}'
+                    type_id: '{{getTypeId}}'
+                    sku: '{{getSku}}'
+                    color: '{{getBlackColorOptionId}}'
+                    size: '{{getMSizeOptionId}}'
+                    apparel_type: '{{getDenimOptionId}}'
+                stock:
+                    stock_data:
+                        qty: 10
+                        is_in_stock: 1
+                        manage_stock: 0
+                media:
+                    gallery:
+                        image: '{{getFixtureImage}}'
+            2:
+                model: catalog/product
+                data_provider: 'Data\Providers\BundleSimpleProduct'
+                attributes:
+                    name: 'Simple Product Fixture'
+                    description: 'Long Description'
+                    short_description: 'Short Description'
+                    weight: 10
+                    status: 1
+                    visibility: '{{getVisibility}}'
+                    price: 389.00
+                    tax_class_id: 0
+                    website_ids: '{{getWebsiteIds}}'
+                    attribute_set_id : '{{getClothingAttributeSetId}}'
+                    category_ids: '{{getCategoryIds}}'
+                    type_id: '{{getTypeId}}'
+                    sku: '{{getSku}}'
+                    color: '{{getBlueColorOptionId}}'
+                    size: '{{getXLSizeOptionId}}'
+                    apparel_type: '{{getDenimOptionId}}'
+                stock:
+                    stock_data:
+                        qty: 10
+                        is_in_stock: 1
+                        manage_stock: 0
+                media:
+                    gallery:
+                        image: '{{getFixtureImage}}'
+
+            3:
+                model: catalog/product
+                data_provider: 'Data\Providers\BundleSimpleProduct'
+                attributes:
+                    name: 'Simple Product Fixture'
+                    description: 'Long Description'
+                    short_description: 'Short Description'
+                    weight: 10
+                    status: 1
+                    visibility: '{{getVisibility}}'
+                    price: 100.00
+                    tax_class_id: 0
+                    website_ids: '{{getWebsiteIds}}'
+                    attribute_set_id : '{{getClothingAttributeSetId}}'
+                    category_ids: '{{getCategoryIds}}'
+                    type_id: '{{getTypeId}}'
+                    sku: '{{getSku}}'
+                    color: '{{getBlackColorOptionId}}'
+                    size: '{{getMSizeOptionId}}'
+                    apparel_type: '{{getDenimOptionId}}'
+                stock:
+                    stock_data:
+                        qty: 10
+                        is_in_stock: 1
+                        manage_stock: 0
+                media:
+                    gallery:
+                        image: '{{getFixtureImage}}'
