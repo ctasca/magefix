@@ -35,7 +35,7 @@ class GroupedProduct extends Product
         $productLinkApi = Mage::getModel('catalog/product_link_api');
         $iterator = new \ArrayIterator($this->_groupedProductsIds);
         while ($iterator->valid()) {
-            $productLinkApi->assign (
+            $productLinkApi->assign(
                 Mage_Catalog_Model_Product_Type::TYPE_GROUPED, $groupedProductId, $iterator->current()
             );
             $iterator->next();
