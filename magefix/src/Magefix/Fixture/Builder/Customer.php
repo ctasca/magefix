@@ -20,9 +20,9 @@ class Customer extends AbstractBuilder
      */
     public function build()
     {
+        $this->iterateFixture();
         $defaultData = $this->_getMageModelData() ? $this->_getMageModelData() : [];
-        $fixtureData = $this->_getFixtureAttributes();
-        $mergedData  = array_merge($defaultData, $fixtureData);
+        $mergedData = array_merge($defaultData, $this->_getFixtureAttributes());
 
         $this->_getMageModel()->setData($mergedData);
 
@@ -58,7 +58,6 @@ class Customer extends AbstractBuilder
     protected function _saveCustomerAddress($customerId, array $addressData)
     {
         $customerAddress = $this->_getAddressModel();
-        $addressData     = $this->_processFixtureAttributes($addressData);
         $customerAddress
             ->setData($addressData)
             ->setCustomerId($customerId);

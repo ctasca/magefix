@@ -1,6 +1,7 @@
 <?php
 
 namespace Magefix\Magento\Store;
+
 use Mage;
 use Mage_Core_Model_App;
 

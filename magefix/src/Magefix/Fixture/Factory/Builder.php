@@ -3,12 +3,13 @@
 namespace Magefix\Fixture\Factory;
 
 use Mage;
+use Magefix\Exceptions\UndefinedFixtureModel;
 use Magefix\Exceptions\UnknownFixtureType;
-use Magefix\Fixtures\Data\Provider;
+use Magefix\Fixture\Instanciator;
+use Magefix\Fixture\Typeable;
 use Magefix\Fixtures\Registry;
 use Magefix\Parser\ResourceLocator;
 use Magefix\Yaml\Parser as YamlParser;
-use Magefix\Fixture\Builder\Customer as CustomerFixture;
 use Magefix\Fixture\Builder\AbstractBuilder as FixtureBuilder;
 
 /**
@@ -19,34 +20,25 @@ use Magefix\Fixture\Builder\AbstractBuilder as FixtureBuilder;
  * @package Magefix\Fixture\Factory
  * @author  Carlo Tasca <ctasca@sessiondigital.com>
  */
-class Builder
+final class Builder implements Typeable
 {
-    const SIMPLE_PRODUCT_FIXTURE_TYPE = 'Product';
-    const CONFIGURABLE_PRODUCT_FIXTURE_TYPE = 'ConfigurableProduct';
-    const BUNDLE_PRODUCT_FIXTURE_TYPE = 'BundleProduct';
-    const SALES_ORDER_FIXTURE_TYPE = 'SalesOrder';
-    const CATEGORY_FIXTURE_TYPE = 'Category';
-    const CUSTOMER_FIXTURE_TYPE = 'Customer';
-
     use Registry;
 
     /**
-     * @param string          $fixtureType
+     * @param string $fixtureType
      * @param ResourceLocator $locator
-     * @param Provider        $dataProvider
-     * @param string          $yamlFilename
-     * @param bool|string     $hook
+     * @param string $yamlFilename
+     * @param bool|string $hook
      *
      * @return int
      * @throws UnknownFixtureType
      * @throws \Magefix\Exceptions\UnavailableHook
      */
-    public static function build(
-        $fixtureType, ResourceLocator $locator, Provider $dataProvider, $yamlFilename, $hook = false
-    ) {
-        $parser    = new YamlParser($locator, $yamlFilename);
+    public static function build($fixtureType, ResourceLocator $locator, $yamlFilename, $hook = '')
+    {
+        $parser = new YamlParser($locator, $yamlFilename);
         $fixtureData = is_array($parser->parse()) ? $parser->parse() : [];
-        $fixture   = self::instantiateFixture($fixtureType, $dataProvider, $fixtureData, $hook);
+        $fixture = Instanciator::instance($fixtureType, $fixtureData, $hook);
         $fixtureId = $fixture->build();
 
         if ($hook) {
@@ -57,60 +49,65 @@ class Builder
     }
 
     /**
-     * @param                $fixtureType
+     * @param $fixtureType
      * @param FixtureBuilder $builder
-     * @param array          $entities
-     * @param bool|string    $hook
-     *
+     * @param array $entities
+     * @param string $hook
      * @return array
      * @throws UndefinedFixtureModel
-     * @throws UnknownFixtureType
-     * @throws \Magefix\Exceptions\UnavailableHook
      */
-    public static function buildMany($fixtureType, FixtureBuilder $builder, array $entities, $hook = false)
+    public static function buildMany($fixtureType, FixtureBuilder $builder, array $entities, $hook = '')
     {
         $many = [];
 
-        foreach ($entities as $entity) {
-            $builder->throwUndefinedDataProvider($entity);
-            $fixtureData = [];
-            $dataProvider           = new $entity['data_provider']();
-            $fixtureData['fixture'] = $entity;
-            $fixture                = self::instantiateFixture($fixtureType, $dataProvider, $fixtureData, $hook);
+        $iterator = new \ArrayIterator($entities);
 
-            $fixtureId = $fixture->build();
+        while ($iterator->valid()) {
+            $builder->throwUndefinedDataProvider($iterator->current());
+            $fixtureId = self::_buildAndRegisterFixture($fixtureType, $hook, $iterator->current());
+            $many[] = self::_getMagentoModel($iterator->current(), $fixtureId);
 
-            self::registerFixture(
-                $fixtureType, $fixtureId, $fixture->getHook()
-            );
-
-            if (!isset($entity['model'])) {
-                throw new UndefinedFixtureModel(
-                    'Magento model has not been defined. Check fixture yml.'
-                );
-            }
-
-            $many[] = Mage::getModel($entity['model'])->load($fixtureId);
+            $iterator->next();
         }
 
         return $many;
     }
 
     /**
-     * @param string      $fixtureType
-     * @param Provider    $dataProvider
-     * @param array       $parsedData
-     * @param string|bool $hook
-     *
-     * @return CustomerFixture|ProductFixture|null
-     * @throws UnknownFixtureType
+     * @param $fixtureType
+     * @param $hook
+     * @param $entity
+     * @return mixed
      */
-    protected static function instantiateFixture($fixtureType, Provider $dataProvider, array $parsedData, $hook)
+    protected static function _buildAndRegisterFixture($fixtureType, $hook, $entity)
     {
-        $mageModel = Mage::getModel($parsedData['fixture']['model']);
-        $class = new \ReflectionClass('Magefix\Fixture\Builder\\' . $fixtureType);
-        $fixture = $class->newInstanceArgs([$parsedData, $mageModel, $dataProvider, $hook]);
+        $fixtureData = [];
+        $fixtureData['fixture'] = $entity;
 
-        return $fixture;
+        $fixture = Instanciator::instance($fixtureType, $fixtureData, $hook);
+
+        $fixtureId = $fixture->build();
+
+        self::registerFixture(
+            $fixtureType, $fixtureId, $fixture->getHook()
+        );
+        return $fixtureId;
+    }
+
+    /**
+     * @param $entity
+     * @param $fixtureId
+     * @return \Mage_Core_Model_Abstract
+     * @throws UndefinedFixtureModel
+     */
+    private static function _getMagentoModel($entity, $fixtureId)
+    {
+        if (!isset($entity['model'])) {
+            throw new UndefinedFixtureModel(
+                'Magento model has not been defined. Check fixture yml.'
+            );
+        }
+
+        return Mage::getModel($entity['model'])->load($fixtureId);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace Magefix\Fixture\Builder\Helper;
+
 use Mage;
 use Magefix\Fixture\Builder\Helper;
 

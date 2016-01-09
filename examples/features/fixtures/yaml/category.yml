@@ -1,5 +1,6 @@
 fixture:
     model : catalog/category
+    data_provider: 'Data\Providers\Category'
     attributes:
         parent_id : '{{getParentId}}'
         store_id : '{{getStoreId}}'

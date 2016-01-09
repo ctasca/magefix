@@ -13,6 +13,7 @@ use Magefix\Fixture\Builder\Helper\QuoteCustomer;
 use Magefix\Fixture\Builder\Helper\ShippingAddress;
 use Magefix\Fixture\Builder\Helper\ShippingMethod;
 use Magefix\Fixture\Factory\Builder;
+use Magefix\Fixture\Factory\ManyBuilder;
 
 /**
  * Class SalesOrder
@@ -34,9 +35,9 @@ class SalesOrder extends AbstractBuilder
      */
     public function build()
     {
+        $this->iterateFixture();
         $defaultData = $this->_getMageModelData() ? $this->_getMageModelData() : [];
-        $fixtureData = $this->_getFixtureAttributes();
-        $mergedData  = array_merge($defaultData, $fixtureData);
+        $mergedData = array_merge($defaultData, $this->_getFixtureAttributes());
 
         $this->_getMageModel()->setData($mergedData);
         $this->_buildQuoteProductFixtures();
@@ -85,7 +86,7 @@ class SalesOrder extends AbstractBuilder
     {
         $this->_validateShippingMethodData();
 
-        $shippingData = $this->_processFixtureAttributes($this->_data['fixture']['shipping_method']);
+        $shippingData = $this->_data['fixture']['shipping_method'];
 
         $shippingMethod = new ShippingMethod($this->_getMageModel(), $shippingData);
         $shippingMethod->addShippingDataToQuote();
@@ -126,10 +127,9 @@ class SalesOrder extends AbstractBuilder
     protected function _setCheckoutMethod()
     {
         $this->_validateCheckoutMethod();
-        $checkoutMethodData = $this->_processFixtureAttributes($this->_data['fixture']['checkout']);
-        $customerData       = isset($this->_data['fixture']['checkout']['customer']) ? $this->_processFixtureAttributes(
-            $this->_data['fixture']['checkout']['customer']
-        ) : [];
+        $checkoutMethodData = $this->_data['fixture']['checkout'];
+        $customerData = isset($this->_data['fixture']['checkout']['customer']) ?
+            $this->_data['fixture']['checkout']['customer'] : [];
         $this->_getMageModel()->setCheckoutMethod($checkoutMethodData['method']);
         $this->_setupCheckoutMethodGuest($checkoutMethodData);
         $this->_setupCheckoutMethodRegister($checkoutMethodData, $customerData);
@@ -177,7 +177,7 @@ class SalesOrder extends AbstractBuilder
     protected function _setPaymentMethod()
     {
         $this->_validatePaymentMethod();
-        $paymentMethodData = $this->_processFixtureAttributes($this->_data['fixture']['payment']);
+        $paymentMethodData = $this->_data['fixture']['payment'];
         $this->_importPaymentData($paymentMethodData);
 
     }

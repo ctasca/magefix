@@ -68,11 +68,11 @@ class ConfigurableProduct extends Product
         $this->_throwUndefinedUsedProductAttributeIds();
 
         foreach ($this->_data['fixture']['used_product_attributes'] as $usedAttributeCode) {
-            $id                                                    = EavAttribute::getIdByCode(
+            $id = EavAttribute::getIdByCode(
                 Mage_Catalog_Model_Product::ENTITY, $usedAttributeCode
             );
             $this->_usedProductAttributeIdsMap[$usedAttributeCode] = $id;
-            $this->_usedProductAttributeIds[]                      = $id;
+            $this->_usedProductAttributeIds[] = $id;
         }
     }
 

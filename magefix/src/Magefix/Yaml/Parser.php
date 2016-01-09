@@ -5,6 +5,7 @@ namespace Magefix\Yaml;
 use Magefix\Exceptions\UndefinedFixtureModel;
 use Magefix\Parser\ResourceLocator as Locator;
 use Symfony\Component\Yaml\Yaml;
+
 /**
  * Class Parser
  *
@@ -27,7 +28,7 @@ class Parser implements \Magefix\Parser
 
     public function __construct(Locator $locator, $filename)
     {
-        $this->_locator  = $locator;
+        $this->_locator = $locator;
         $this->_filename = $filename;
     }
 
