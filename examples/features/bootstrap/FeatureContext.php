@@ -122,6 +122,14 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
     }
 
     /**
+     * @Given I setup an admin fixture
+     */
+    public function iSetupAnAdminFixture()
+    {
+        $this->_buildAdminFixture();
+    }
+
+    /**
      *
      * @throws Exception
      */
@@ -267,6 +275,17 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
     {
         FixtureBuilder::build(
             FixtureBuilder::GROUPED_PRODUCT_FIXTURE_TYPE, new FixturesLocator(), 'grouped-product.yml', '@AfterScenario'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildAdminFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::ADMIN_FIXTURE_TYPE, new FixturesLocator(), 'admin.yml', '@AfterScenario'
         );
     }
 }
