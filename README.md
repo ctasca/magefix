@@ -13,6 +13,7 @@ A library to facilitate the creation of Magento fixtures for BehatMage. The foll
 - Sales Order type Customer
 - Api Role
 - Api User
+- Admin User
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ctasca/magefix/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/ctasca/magefix/?branch=develop) [![Build Status](https://scrutinizer-ci.com/g/ctasca/magefix/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/ctasca/magefix/build-status/develop)
 
@@ -100,6 +101,7 @@ Here is an example for a Magento simple product fixture:
 ```yml
 fixture:
     model: catalog/product
+    data_provider: 'Data\Providers\SimpleProduct'
     attributes:
         name: 'Simple Product Fixture'
         description: 'Long Description'
@@ -136,6 +138,7 @@ data providers. For example, when creating a Sales Order fixture, we may want to
 ```yml
 fixture:
     model: sales/quote
+    data_provider: 'Data\Providers\SalesOrderCustomer'
     attributes:
         store_id: '{{getStoreId}}'
     quote_products:
@@ -261,6 +264,7 @@ Available Builder's fixture type constants:
 - `Builder::SALES_ORDER_FIXTURE_TYPE`
 - `Builder::API_ROLE_FIXTURE_TYPE`
 - `Builder::API_USER_FIXTURE_TYPE`
+- `Builder::ADMIN_FIXTURE_TYPE`
 
 ## Cleaning Fixtures
 

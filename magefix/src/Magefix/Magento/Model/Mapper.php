@@ -24,6 +24,7 @@ class Mapper
         Builder::SALES_ORDER_FIXTURE_TYPE => 'sales/order',
         Builder::API_ROLE_FIXTURE_TYPE => 'api/roles',
         Builder::API_USER_FIXTURE_TYPE => 'api/user',
+        Builder::ADMIN_FIXTURE_TYPE => 'admin/user',
     ];
 
     public static function getMap()
