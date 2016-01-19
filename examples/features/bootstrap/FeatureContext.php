@@ -285,7 +285,7 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
     protected function _buildAdminFixture()
     {
         FixtureBuilder::build(
-            FixtureBuilder::GROUPED_PRODUCT_FIXTURE_TYPE, new FixturesLocator(), 'admin.yml', '@AfterScenario'
+            FixtureBuilder::ADMIN_FIXTURE_TYPE, new FixturesLocator(), 'admin.yml', '@AfterScenario'
         );
     }
 }
