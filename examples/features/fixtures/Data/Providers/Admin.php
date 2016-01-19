@@ -5,12 +5,12 @@ use Mage;
 use Magefix\Fixtures\Data\Provider;
 
 /**
- * Class Customer
+ * Class Admin
  *
- * Customer fixture data provider
+ * Admin user fixture data provider
  *
  * @package Data\Providers
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Daniel Kidanemariam <danielk@sessiondigital.com>
  */
 class Admin implements Provider
 {

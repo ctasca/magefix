@@ -2,9 +2,6 @@
 
 namespace Magefix\Fixture\Builder;
 
-use Mage;
-use Magefix\Exceptions\UndefinedAttributes;
-
 /**
  * Class Admin
  *
