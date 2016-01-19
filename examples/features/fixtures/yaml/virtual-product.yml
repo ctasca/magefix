@@ -1,0 +1,23 @@
+fixture:
+    model: catalog/product
+    data_provider: 'Data\Providers\VirtualProduct'
+    attributes:
+        name: 'Virtual Product Fixture'
+        description: 'Long Description'
+        short_description: 'Short Description'
+        weight: 10
+        status: 1
+        visibility: 4
+        price: 100.00
+        tax_class_id: 0
+        website_ids: '{{getWebsiteIds}}'
+        attribute_set_id : '{{getDefaultAttributeSetId}}'
+        category_ids: '{{getCategoryIds}}'
+        type_id: '{{getTypeId}}'
+        sku: '{{getSku}}'
+    stock:
+        stock_data:
+            qty: '{{getStockQty}}'
+            is_in_stock: 1
+            manage_stock: 1
+
