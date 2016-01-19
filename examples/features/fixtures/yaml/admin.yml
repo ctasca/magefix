@@ -1,0 +1,9 @@
+fixture:
+    model: admin/user
+    data_provider: 'Data\Providers\Admin'
+    attributes:
+        username: '{{getUsername}}'
+        firstname: '{{getFirstname}}'
+        lastname: '{{getLastname}}'
+        email: '{{getEmail}}'
+        password: '{{getPassword}}'

@@ -13,3 +13,4 @@ Feature: Magento Fixtures
       And I setup a customer sales order fixture
       And I setup an api user fixture
       And I setup a grouped product fixture
+      And I setup an admin fixture
