@@ -19,6 +19,7 @@ class Mapper
         Builder::CONFIGURABLE_PRODUCT_FIXTURE_TYPE => 'catalog/product',
         Builder::BUNDLE_PRODUCT_FIXTURE_TYPE => 'catalog/product',
         Builder::GROUPED_PRODUCT_FIXTURE_TYPE => 'catalog/product',
+        Builder::VIRTUAL_PRODUCT_FIXTURE_TYPE => 'catalog/product',
         Builder::CATEGORY_FIXTURE_TYPE => 'catalog/category',
         Builder::CUSTOMER_FIXTURE_TYPE => 'customer/customer',
         Builder::SALES_ORDER_FIXTURE_TYPE => 'sales/order',
