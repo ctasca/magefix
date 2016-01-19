@@ -24,7 +24,7 @@ class Admin implements Provider
         return 'admin';
     }
 
-    public function getLastnname()
+    public function getLastname()
     {
         return 'admin';
     }

@@ -3,7 +3,7 @@ fixture:
     data_provider: 'Data\Providers\Admin'
     attributes:
         username: '{{getUsername}}'
-        firstname: '{{getFirstnamel}}'
+        firstname: '{{getFirstname}}'
         lastname: '{{getLastname}}'
         email: '{{getEmail}}'
         password: '{{getPassword}}'
