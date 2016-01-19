@@ -25,5 +25,5 @@ filter:
 build_failure_conditions:
     - 'elements.rating(<= C).exists'
     - 'issues.new.exists'
-    - 'project.metric("scrutinizer.quality", < 9.5)'
+    - 'project.metric("scrutinizer.quality", < 10)'
 

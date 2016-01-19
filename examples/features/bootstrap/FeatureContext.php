@@ -121,6 +121,15 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
         $this->_buildGroupedProductFixture();
     }
 
+
+    /**
+     * @Given I setup a virtual product fixture
+     */
+    public function iSetupAVirtualProductFixture()
+    {
+        throw new PendingException();
+    }
+
     /**
      *
      * @throws Exception
@@ -267,6 +276,17 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
     {
         FixtureBuilder::build(
             FixtureBuilder::GROUPED_PRODUCT_FIXTURE_TYPE, new FixturesLocator(), 'grouped-product.yml', '@AfterScenario'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildVirtualProductFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::VIRTUAL_PRODUCT_FIXTURE_TYPE, new FixturesLocator(), 'virtual-product.yml', '@AfterScenario'
         );
     }
 }

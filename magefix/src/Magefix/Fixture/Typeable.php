@@ -12,6 +12,7 @@ interface Typeable
     const CONFIGURABLE_PRODUCT_FIXTURE_TYPE = 'ConfigurableProduct';
     const BUNDLE_PRODUCT_FIXTURE_TYPE = 'BundleProduct';
     const GROUPED_PRODUCT_FIXTURE_TYPE = 'GroupedProduct';
+    const VIRTUAL_PRODUCT_FIXTURE_TYPE = 'VirtualProduct';
     const SALES_ORDER_FIXTURE_TYPE = 'SalesOrder';
     const CATEGORY_FIXTURE_TYPE = 'Category';
     const CUSTOMER_FIXTURE_TYPE = 'Customer';
