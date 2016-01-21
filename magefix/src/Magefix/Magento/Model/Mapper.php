@@ -25,6 +25,7 @@ class Mapper
         Builder::API_ROLE_FIXTURE_TYPE => 'api/roles',
         Builder::API_USER_FIXTURE_TYPE => 'api/user',
         Builder::ADMIN_FIXTURE_TYPE => 'admin/user',
+        Builder::OAUTH_CONSUMER_FIXTURE_TYPE => 'oauth/consumer',
     ];
 
     public static function getMap()
