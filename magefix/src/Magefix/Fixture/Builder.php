@@ -5,6 +5,6 @@ namespace Magefix\Fixture;
 
 interface Builder
 {
-    function iterateFixture();
+    function invokeProvidersMethods();
     function build();
 }

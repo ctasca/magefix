@@ -35,7 +35,7 @@ class SalesOrder extends AbstractBuilder
      */
     public function build()
     {
-        $this->iterateFixture();
+        $this->invokeProvidersMethods();
         $defaultData = $this->_getMageModelData() ? $this->_getMageModelData() : [];
         $mergedData = array_merge($defaultData, $this->_getFixtureAttributes());
 

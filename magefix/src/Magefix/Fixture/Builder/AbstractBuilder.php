@@ -74,7 +74,7 @@ abstract class AbstractBuilder implements Builder
     /**
      * Iterate fixture data
      */
-    public function iterateFixture()
+    public function invokeProvidersMethods()
     {
         $iterator = new DataIterator($this->_data);
         $this->_data = $iterator->apply($this->_getDataProvider());
@@ -103,7 +103,7 @@ abstract class AbstractBuilder implements Builder
 
     protected function _build()
     {
-        $this->iterateFixture();
+        $this->invokeProvidersMethods();
         $defaultData = $this->_getMageModelData() ? $this->_getMageModelData() : [];
         $mergedData  = array_merge($defaultData, $this->_getFixtureAttributes());
 
