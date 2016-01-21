@@ -22,7 +22,7 @@ class ApiUser extends AbstractBuilder
      */
     public function build()
     {
-        $this->iterateFixture();
+        $this->invokeProvidersMethods();
 
         $this->_throwUndefinedAttributesException(isset($this->_data['fixture']['api_role']['model']),
             'Api Role model has not been defined. Check fixture yml.');

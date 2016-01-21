@@ -18,4 +18,5 @@ interface Typeable
     const API_ROLE_FIXTURE_TYPE = 'ApiRole';
     const API_USER_FIXTURE_TYPE = 'ApiUser';
     const ADMIN_FIXTURE_TYPE = 'Admin';
+    const OAUTH_CONSUMER_FIXTURE_TYPE = 'OauthConsumer';
 }

@@ -14,7 +14,7 @@ class Category extends AbstractBuilder
 {
     public function build()
     {
-        $this->iterateFixture();
+        $this->invokeProvidersMethods();
         $fixtureData = $this->_getFixtureAttributes();
 
         if (!isset($fixtureData['parent_id'])) {

@@ -1,0 +1,10 @@
+fixture:
+  model: oauth/consumer
+  data_provider: 'Data\Providers\OauthConsumer'
+  attributes:
+    name : '{{getName}}'
+    key: '{{getKey}}'
+    secret: '{{getSecret}}'
+    callback_url: ''
+    rejected_callback_url: ''
+
