@@ -124,7 +124,7 @@ class Product extends AbstractBuilder
      */
     protected function _beforeBuild()
     {
-        $this->iterateFixture();
+        $this->invokeProvidersMethods();
         $fixtureStockData = [];
         $defaultData = $this->_getMageModelData() ? $this->_getMageModelData() : [];
         $fixtureData = $this->_getFixtureAttributes();

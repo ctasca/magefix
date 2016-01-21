@@ -130,6 +130,14 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
     }
 
     /**
+     * @Given I setup an oauth consumer fixture
+     */
+    public function iSetupAnOauthConsumerFixture()
+    {
+         $this->_buildOauthConsumerFixture();
+    }
+
+    /**
      *
      * @throws Exception
      */
@@ -286,6 +294,17 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
     {
         FixtureBuilder::build(
             FixtureBuilder::ADMIN_FIXTURE_TYPE, new FixturesLocator(), 'admin.yml', '@AfterScenario'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildOauthConsumerFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::OAUTH_CONSUMER_FIXTURE_TYPE, new FixturesLocator(), 'oauth-consumer.yml', '@AfterSuite'
         );
     }
 }

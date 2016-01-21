@@ -14,6 +14,7 @@ A library to facilitate the creation of Magento fixtures for BehatMage. The foll
 - Api Role
 - Api User
 - Admin User
+- OAuth Consumer
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ctasca/magefix/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/ctasca/magefix/?branch=develop) [![Build Status](https://scrutinizer-ci.com/g/ctasca/magefix/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/ctasca/magefix/build-status/develop)
 
@@ -169,7 +170,6 @@ fixture:
         data_provider: 'Data\Providers\SalesOrderCustomer'
 ```
 
-
 An example of a Data Provider:
 
 ```php
@@ -265,6 +265,7 @@ Available Builder's fixture type constants:
 - `Builder::API_ROLE_FIXTURE_TYPE`
 - `Builder::API_USER_FIXTURE_TYPE`
 - `Builder::ADMIN_FIXTURE_TYPE`
+- `Builder::OAUTH_CONSUMER_FIXTURE_TYPE`
 
 ## Cleaning Fixtures
 
