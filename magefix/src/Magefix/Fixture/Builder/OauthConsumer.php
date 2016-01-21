@@ -22,12 +22,6 @@ class OauthConsumer extends AbstractBuilder
      */
     public function build()
     {
-        $this->iterateFixture();
-        $defaultData = $this->_getMageModelData() ? $this->_getMageModelData() : [];
-        $mergedData  = array_merge($defaultData, $this->_getFixtureAttributes());
-
-        $this->_getMageModel()->setData($mergedData);
-
-        return $this->_saveFixture();
+        return $this->_build();
     }
 }

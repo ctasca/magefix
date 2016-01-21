@@ -72,17 +72,6 @@ abstract class AbstractBuilder implements Builder
     }
 
     /**
-     * @param $entity
-     *
-     * @throws UndefinedDataProvider
-     *
-     */
-    public function throwUndefinedDataProvider($entity)
-    {
-        $this->_throwUndefinedDataProvider($entity);
-    }
-
-    /**
      * Iterate fixture data
      */
     public function iterateFixture()
@@ -99,6 +88,28 @@ abstract class AbstractBuilder implements Builder
     public function saveFixtureWithModelAndData($mageModel, $data)
     {
         $this->_saveFixtureWithModelAndData($mageModel, $data);
+    }
+
+    /**
+     * @param $entity
+     *
+     * @throws UndefinedDataProvider
+     *
+     */
+    public function throwUndefinedDataProvider($entity)
+    {
+        $this->_throwUndefinedDataProvider($entity);
+    }
+
+    protected function _build()
+    {
+        $this->iterateFixture();
+        $defaultData = $this->_getMageModelData() ? $this->_getMageModelData() : [];
+        $mergedData  = array_merge($defaultData, $this->_getFixtureAttributes());
+
+        $this->_getMageModel()->setData($mergedData);
+
+        return $this->_saveFixture();
     }
 
     /**
