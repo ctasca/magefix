@@ -17,6 +17,6 @@ class Admin extends AbstractBuilder
      */
     public function build()
     {
-       return $this->_build();
+        return $this->_build();
     }
 }
