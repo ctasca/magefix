@@ -17,6 +17,18 @@ class Admin extends AbstractBuilder
      */
     public function build()
     {
-        return $this->_build();
+        $fixtureId = $this->_build();
+        $this->_assignRoleIds();
+        return $fixtureId;
+    }
+
+    protected function _assignRoleIds()
+    {
+        if (isset($this->_data['fixture']['attributes']['roles_ids'])) {
+            $adminUser = $this->_getMageModel();
+            $adminUser->setRoleIds($this->_data['fixture']['attributes']['roles_ids'])
+                ->setRoleUserId($adminUser->getId())
+                ->saveRelations();
+        }
     }
 }

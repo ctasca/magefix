@@ -137,6 +137,15 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
          $this->_buildOauthConsumerFixture();
     }
 
+
+    /**
+     * @Given I setup an admin fixture with role ids
+     */
+    public function iSetupAnAdminFixtureWithRoleIds()
+    {
+        $this->_buildAdminWithRoleIdsFixture();
+    }
+
     /**
      *
      * @throws Exception
@@ -294,6 +303,17 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
     {
         FixtureBuilder::build(
             FixtureBuilder::ADMIN_FIXTURE_TYPE, new FixturesLocator(), 'admin.yml', '@AfterScenario'
+        );
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    protected function _buildAdminWithRoleIdsFixture()
+    {
+        FixtureBuilder::build(
+            FixtureBuilder::ADMIN_FIXTURE_TYPE, new FixturesLocator(), 'admin-with-role-ids.yml', '@AfterSuite'
         );
     }
 
