@@ -16,7 +16,9 @@ class Admin implements Provider
 {
     public function getUsername()
     {
-        return 'testadmin';
+        $random = substr(md5(rand()), 0, 7);
+
+        return 'admin' . $random;
     }
 
     public function getFirstname()
@@ -31,11 +33,18 @@ class Admin implements Provider
 
     public function getEmail()
     {
-        return 'testadmin@example.com';
+        $random = substr(md5(rand()), 0, 7);
+
+        return 'admin' . $random . '@fixture.com';
     }
 
     public function getPassword()
     {
         return '123123pass';
+    }
+
+    public function getRoleIds()
+    {
+        return [1];
     }
 }
