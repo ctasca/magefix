@@ -33,4 +33,22 @@ class Scope
     {
         Mage::app()->setCurrentStore(self::$_currentStore);
     }
+
+    /**
+     * @param $storeCode
+     * @throws \Exception
+     */
+    public static function switchScope($storeCode)
+    {
+        $stores = Mage::getModel('core/store')->getCollection()
+            ->addFieldToFilter('code', ['eq' => $storeCode]);
+
+        $store = $stores->getSelect()->limit(1)->query()->fetch();
+
+        if (empty($store)) {
+            throw new \Exception("Unavailable data for store code: '{$storeCode}'");
+        }
+
+        Mage::app()->setCurrentStore($store['store_id']);
+    }
 }
