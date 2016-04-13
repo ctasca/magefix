@@ -43,7 +43,7 @@ trait Spinner
      */
     public function spinUntilVisible($element, $wait = 60)
     {
-        $this->spin(function ($context) use ($element) {
+        $this->spin(function($context) use ($element) {
             return $context->getElement($element)->isVisible();
         }, $wait);
     }
@@ -56,7 +56,7 @@ trait Spinner
      */
     public function spinUntilInvisible($element, $wait = 60)
     {
-        $this->spin(function ($context) use ($element) {
+        $this->spin(function($context) use ($element) {
             return ($context->getElement($element)->isVisible() == false);
         }, $wait);
     }
@@ -69,7 +69,7 @@ trait Spinner
      */
     public function spinAndClick($element, $wait = 60)
     {
-        $this->spin(function ($context) use ($element) {
+        $this->spin(function($context) use ($element) {
             $context->getElement($element)->click();
             return true;
         }, $wait);
@@ -83,7 +83,7 @@ trait Spinner
      */
     public function spinAndPress($element, $wait = 60)
     {
-        $this->spin(function ($context) use ($element) {
+        $this->spin(function($context) use ($element) {
             $context->getElement($element)->press();
             return true;
         }, $wait);
