@@ -58,6 +58,30 @@ class Checkout implements Helper
     }
 
     /**
+     * Enable specified payment method
+     * Example: checkmo
+     *
+     * @param $method
+     */
+    public static function enablePaymentMethod($method)
+    {
+        $method = sprintf("payment/%s/active", $method);
+        Mage::getModel('core/config')->saveConfig($method, 1);
+    }
+
+    /**
+     * Disable specified payment method
+     * Example: checkmo
+     *
+     * @param $method
+     */
+    public static function disablePaymentMethod($method)
+    {
+        $method = sprintf("payment/%s/active", $method);
+        Mage::getModel('core/config')->saveConfig($method, 0);
+    }
+
+    /**
      * @param $method
      * @param $checkoutMethodData
      *
