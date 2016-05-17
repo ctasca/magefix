@@ -88,6 +88,21 @@ trait Spinner
     }
 
     /**
+     * Spin and carry out given action on an element. Default timeout is 60 seconds.
+     *
+     * @param string|Object $element
+     * @param $action
+     * @param null $condition
+     * @param int $wait
+     */
+    public function spinAndDo($element, $action, $condition = null, $wait = 60)
+    {
+        $this->spin(function ($context) use ($element, $action, $condition) {
+            return $this->_spinnerAction($context, $element, $action, $condition);
+        }, $wait);
+    }
+
+    /**
      * @throws \Exception
      */
     protected function _throwBacktraceException()
