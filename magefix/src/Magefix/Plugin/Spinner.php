@@ -44,10 +44,7 @@ trait Spinner
     public function spinUntilVisible($element, $wait = 60)
     {
         $this->spin(function ($context) use ($element) {
-            if (is_object($element)) {
-                return $element->isVisible();
-            }
-            return $context->getElement($element)->isVisible();
+            return $this->_spinnerAction($context, $element, 'isVisible', true);
         }, $wait);
     }
 
@@ -60,10 +57,7 @@ trait Spinner
     public function spinUntilInvisible($element, $wait = 60)
     {
         $this->spin(function ($context) use ($element) {
-            if (is_object($element)) {
-                return $element->isVisible() == false;
-            }
-            return ($context->getElement($element)->isVisible() == false);
+            return $this->_spinnerAction($context, $element, 'isVisible', false);
         }, $wait);
     }
 
@@ -76,12 +70,7 @@ trait Spinner
     public function spinAndClick($element, $wait = 60)
     {
         $this->spin(function ($context) use ($element) {
-            if (is_object($element)) {
-                $element->click();
-                return true;
-            }
-            $context->getElement($element)->click();
-            return true;
+            return $this->_spinnerAction($context, $element, 'click');
         }, $wait);
     }
 
@@ -94,12 +83,7 @@ trait Spinner
     public function spinAndPress($element, $wait = 60)
     {
         $this->spin(function ($context) use ($element) {
-            if (is_object($element)) {
-                $element->press();
-                return true;
-            }
-            $context->getElement($element)->press();
-            return true;
+            return $this->_spinnerAction($context, $element, 'press');
         }, $wait);
     }
 
@@ -114,5 +98,29 @@ trait Spinner
             "Timeout thrown by " . $backtrace[1]['class'] . "::" . $backtrace[1]['function'] . "()\n" .
             $backtrace[1]['file'] . ", line " . $backtrace[1]['line']
         );
+    }
+
+    /**
+     * @param $context
+     * @param $element
+     * @param $action
+     * @param null $condition
+     * @return bool
+     */
+    private function _spinnerAction($context, $element, $action, $condition = null)
+    {
+        if (is_object($element)) {
+            if (!is_null($condition)) {
+                return $element->$action() === $condition;
+            }
+            $element->$action();
+        } else {
+            if (!is_null($condition)) {
+                return  $context->getElement($element)->$action() === $condition;
+            }
+            $context->getElement($element)->$action();
+        }
+
+        return true;
     }
 }
