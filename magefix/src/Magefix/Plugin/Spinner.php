@@ -38,12 +38,15 @@ trait Spinner
     /**
      * Spin until element is visible. Default timeout is 60 seconds.
      *
-     * @param string $element
+     * @param string|Object $element
      * @param int $wait
      */
     public function spinUntilVisible($element, $wait = 60)
     {
-        $this->spin(function($context) use ($element) {
+        $this->spin(function ($context) use ($element) {
+            if (is_object($element)) {
+                return $element->isVisible();
+            }
             return $context->getElement($element)->isVisible();
         }, $wait);
     }
@@ -51,12 +54,15 @@ trait Spinner
     /**
      * Spin until element is not visible. Default timeout is 60 seconds.
      *
-     * @param string $element
+     * @param string|Object $element
      * @param int $wait
      */
     public function spinUntilInvisible($element, $wait = 60)
     {
-        $this->spin(function($context) use ($element) {
+        $this->spin(function ($context) use ($element) {
+            if (is_object($element)) {
+                return $element->isVisible() == false;
+            }
             return ($context->getElement($element)->isVisible() == false);
         }, $wait);
     }
@@ -64,12 +70,16 @@ trait Spinner
     /**
      * Spin and click element. Default timeout is 60 seconds.
      *
-     * @param string $element
+     * @param string|Object $element
      * @param int $wait
      */
     public function spinAndClick($element, $wait = 60)
     {
-        $this->spin(function($context) use ($element) {
+        $this->spin(function ($context) use ($element) {
+            if (is_object($element)) {
+                $element->click();
+                return true;
+            }
             $context->getElement($element)->click();
             return true;
         }, $wait);
@@ -78,12 +88,16 @@ trait Spinner
     /**
      * Spin and press element. Default timeout is 60 seconds.
      *
-     * @param string $element
+     * @param string|Object $element
      * @param int $wait
      */
     public function spinAndPress($element, $wait = 60)
     {
-        $this->spin(function($context) use ($element) {
+        $this->spin(function ($context) use ($element) {
+            if (is_object($element)) {
+                $element->press();
+                return true;
+            }
             $context->getElement($element)->press();
             return true;
         }, $wait);
