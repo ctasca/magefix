@@ -28,17 +28,6 @@ Add the following to your composer.json:
 
 ```yaml
 ...
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/ctasca/magefix.git"
-    }
-],
-...
-```
-
-```yaml
-...
  "require-dev": {
     "ctasca/magefix": "dev-develop"
  },
@@ -288,7 +277,67 @@ deleted.
 - `@BeforeStep`
 - `@AfterStep`
 
+## Plugins
+
+Plugins comes in terms of Traits. The following traits are available:
+
+### AdminPanelSession  
+
+Provides operations to manage admin panel session keys.
+
+- getCurrentUrlKey
+- getSessionKeyForUrl(string)
+
+### DriverCurrentUrl
+
+Retrieves driver's current url.
+
+- getDriverCurrentUrl()
+
+### DriverSession
+
+Provides functionality to refresh driver session.
+
+- refreshSelenium2Session()
+
+### DriverSwitcher
+
+Provides funtionality to switch driver scope between windows and i-frames.
+
+- switchToIFrame(string|object)  Accepts either a string or a SensioLabs\Behat\PageObjectExtension\PageObject\Element object
+
+### ElementObjectGetter
+
+Provides functionality to create an Element object without providing an initial selector
+
+- getElementObject(string) 
+
+### Spinner
+
+Provides "waiting" functionality to contexts.
+
+- spin(lamba, wait) where lamba is a function and wait a timeout in seconds for the operation.
+
+- spinUntilVisible(element, wait) Spin until element is visible. Default timeout is 60 seconds. Element can be either a string or a SensioLabs\Behat\PageObjectExtension\PageObject\Element object.
+
+- spinUntilInvisible(element, wait) Spin until element is not visible. Default timeout is 60 seconds. Element can be either a string or a SensioLabs\Behat\PageObjectExtension\PageObject\Element object.
+
+- spinAndClick(element, wait) Spin and click element. Default timeout is 60 seconds. Element can be either a string or a SensioLabs\Behat\PageObjectExtension\PageObject\Element object.
+
+- spinAndPress(element, wait) Spin and press element. Default timeout is 60 seconds. Element can be either a string or a SensioLabs\Behat\PageObjectExtension\PageObject\Element object.
+
+- spinAndDo(element, action) Spin and carry out specified action on an element. Element can be either a string or a SensioLabs\Behat\PageObjectExtension\PageObject\Element object and action is a string (e.g. "press"). Also accept an optional condition and timeout. Default timeout is 60 seconds.
+
+### WindowResizer
+
+Provides functionality to resize context windows
+
+- resizeToDesktopWindow(DriverInterface) 
+
+- resizeToMobileWindow(DriverInterface)
+
 ## Using Many Locators
+
 To use many locators, simply create them and make sure they are auto-loaded with composer. After being loaded, pass the 
 desired locator instance to `Builder`'s `build` method.
 
