@@ -18,6 +18,13 @@ checks:
         code_rating: true
         duplication: true
 
+build:
+    tests:
+        before:
+            - sudo apt-get install -y graphviz
+        override:
+            - { command: 'bash tools/bash/phpmetrics.sh', idle_timeout: 180 }
+
 filter:
     paths:
         - 'magefix/src/*'
