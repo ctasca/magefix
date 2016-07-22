@@ -19,7 +19,7 @@ use Magefix\Fixture\Factory\ManyBuilder;
  * Class SalesOrder
  *
  * @package Magefix\Fixture\Builder
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class SalesOrder extends AbstractBuilder
 {

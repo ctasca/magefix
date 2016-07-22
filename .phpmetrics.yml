@@ -1,0 +1,18 @@
+radley:
+    path:
+        directory: ./magefix/src
+        extensions: php|inc
+        symlinks: true
+    logging:
+        report:
+            html: ./artifacts/phpmetrics/phpmetrics-report.html
+            xml: ./artifacts/phpmetrics/phpmetrics-report.xml
+            csv: ./artifacts/phpmetrics/phpmetrics-report.csv
+            json: ./artifacts/phpmetrics/phpmetrics-report.csv
+        violations:
+            xml: ./artifacts/phpmetrics/phpmetrics-violations.xml
+        chart:
+            bubbles: ./artifacts/phpmetrics/var/phpmetrics-bubbles.svg
+    template:
+        title: PhpMetrics report for Magefix
+        offline: true

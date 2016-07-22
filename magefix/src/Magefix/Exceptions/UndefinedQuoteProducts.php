@@ -9,7 +9,7 @@ namespace Magefix\Exceptions;
  * checkout product fixtures have not been defined.
  *
  * @package Magefix\Exceptions
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class UndefinedQuoteProducts extends \Exception
 {

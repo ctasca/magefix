@@ -3,11 +3,12 @@
 namespace Magefix\Behat\Page\Element;
 
 /**
- * Class XpathId
+ * Class XPathIdSelectorElement
+ * 
  * @package Magefix\Behat\Page\Element
- * @author  Carlo Tasca <ctasca@inviqa.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
-class XpathId extends Parameter
+class XPathIdSelectorElement extends Generic
 {
     /**
      * @var array

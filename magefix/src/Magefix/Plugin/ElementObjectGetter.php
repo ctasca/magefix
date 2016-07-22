@@ -13,7 +13,7 @@ use Behat\Mink\Element\NodeElement;
  * Allows for dynamic xpath selectors in Element instances.
  *
  * @package Magefix\Plugin
- * @author  Carlo Tasca <ctasca@inviqa.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 trait ElementObjectGetter
 {

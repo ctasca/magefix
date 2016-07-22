@@ -8,7 +8,7 @@ namespace Magefix\Exceptions;
  * Thrown when trying to instantiate an unknown fixture type
  *
  * @package Magefix\Exceptions
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class UnknownFixtureType extends \Exception
 {

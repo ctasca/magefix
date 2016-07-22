@@ -6,9 +6,9 @@ use SensioLabs\Behat\PageObjectExtension\PageObject\Element;
 /**
  * Class Parameter
  * @package Magefix\Behat\Page\Element
- * @author  Carlo Tasca <ctasca@inviqa.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
-abstract class Parameter extends Element implements Parameterable
+abstract class Generic extends Element implements Parameterable
 {
     /**
      * @var string
