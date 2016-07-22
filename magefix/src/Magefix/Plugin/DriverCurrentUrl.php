@@ -13,6 +13,17 @@ trait DriverCurrentUrl
     abstract public function getDriver();
 
     /**
+     * Magefix version backward compatibility method before refactoring to getDriverCurrentUrl
+     *
+     *
+     * @return mixed
+     */
+    public function getCurrentUrl()
+    {
+        return $this->getDriverCurrentUrl();
+    }
+
+    /**
      * @return mixed
      */
     public function getDriverCurrentUrl()

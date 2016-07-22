@@ -3,20 +3,32 @@
 namespace Magefix\Behat\Page;
 
 use SensioLabs\Behat\PageObjectExtension\PageObject\Page as PageObject;
-use Magefix\Plugin\WindowResizer;
-use Magefix\Plugin\StorePage;
+
+use Magefix\Plugin\AdminPanelSession;
 use Magefix\Plugin\DriverCurrentUrl;
+use Magefix\Plugin\DriverSession;
+use Magefix\Plugin\DriverSwitcher;
 use Magefix\Plugin\ElementObjectGetter;
+use Magefix\Plugin\Spinner;
+use Magefix\Plugin\StorePage;
+use Magefix\Plugin\WindowResizer;
 
 /**
- * Class Homepage
+ * Class MagePage
+ *
+ * Provides a generic class to instantiate Behat Page Objects with Magefix Plugins
+ *
  * @package Magefix\Behat\Page
  * @author  Carlo Tasca <ctasca@inviqa.com>
  */
-class Homepage extends PageObject
+abstract class MagePage extends PageObject
 {
+    use AdminPanelSession;
+    use DriverCurrentUrl;
+    use DriverSwitcher;
+    use DriverSession;
+    use ElementObjectGetter;
+    use Spinner;
     use StorePage;
     use WindowResizer;
-    use DriverCurrentUrl;
-    use ElementObjectGetter;
 }
