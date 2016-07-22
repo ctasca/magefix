@@ -10,7 +10,7 @@ use Magefix\Fixtures\Data\Provider;
  * Class SimpleProduct
  *
  * @package Data\Providers
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class SimpleProduct implements Provider
 {

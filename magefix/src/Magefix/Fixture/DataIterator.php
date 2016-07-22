@@ -9,7 +9,7 @@ use Magefix\Fixtures\Data\Provider;
  * Class DataIterator
  *
  * @package Magefix\Fixture\Attributes
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class DataIterator extends \ArrayIterator
 {

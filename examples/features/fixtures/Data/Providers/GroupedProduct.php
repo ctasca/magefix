@@ -11,7 +11,7 @@ use Magefix\Fixtures\Data\Provider;
  * Class GroupedProduct
  *
  * @package Data\Providers
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class GroupedProduct implements Provider
 {

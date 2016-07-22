@@ -9,7 +9,7 @@ use Magefix\Fixtures\Data\Provider;
  * Class SalesOrder
  *
  * @package Data\Providers
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class SalesOrderCustomer extends SalesOrderRegister implements Provider
 {

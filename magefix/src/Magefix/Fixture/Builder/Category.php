@@ -8,7 +8,7 @@ use Magefix\Exceptions\NullCategoryParentId;
  * Class Category
  *
  * @package Magefix\Fixture\Builder
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class Category extends AbstractBuilder
 {

@@ -8,7 +8,7 @@ namespace Magefix\Plugin;
  * Provide "waiting" functionality to contexts
  *
  * @package Magefix\Plugin
- * @author  Carlo Tasca <ctasca@inviqa.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 trait Spinner
 {

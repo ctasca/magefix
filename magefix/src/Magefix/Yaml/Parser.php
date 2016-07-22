@@ -12,7 +12,7 @@ use Symfony\Component\Yaml\Yaml;
  * Parse YAML files
  *
  * @package Magefix\Yaml
- * @author  Carlo Tasca <ctasca@inviqa.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class Parser implements \Magefix\Parser
 {

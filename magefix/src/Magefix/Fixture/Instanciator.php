@@ -6,7 +6,7 @@ use Mage;
 /**
  * Class Instanciator
  * @package Magefix\Fixture
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 final class Instanciator
 {

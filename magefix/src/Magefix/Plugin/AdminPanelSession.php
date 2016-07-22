@@ -7,7 +7,7 @@ namespace Magefix\Plugin;
  *
  *
  * @package Magefix\Plugin
- * @author  Carlo Tasca <ctasca@inviqa.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 trait AdminPanelSession
 {

@@ -11,7 +11,7 @@ use Magefix\Fixture\Builder\Helper\AttributeSet;
  * Class ConfigurableSimpleProduct
  *
  * @package Data\Providers
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class ConfigurableSimpleProduct extends SimpleProduct implements Provider
 {
