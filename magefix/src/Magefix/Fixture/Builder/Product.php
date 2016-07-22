@@ -10,7 +10,7 @@ use Magefix\Exceptions\UndefinedStockData;
  * Class Product
  *
  * @package Magefix\Fixture\Builder
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class Product extends AbstractBuilder
 {

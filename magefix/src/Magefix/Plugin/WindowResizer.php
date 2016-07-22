@@ -8,7 +8,7 @@ use Behat\Mink\Driver\DriverInterface;
  * Class WindowResizer
  * 
  * @package Magefix\Plugin
- * @author  Carlo Tasca <ctasca@inviqa.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 trait WindowResizer
 {

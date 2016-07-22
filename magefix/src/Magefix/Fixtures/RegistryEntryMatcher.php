@@ -10,7 +10,7 @@ use Magefix\Magento\Model\Mapper;
  * Class RegistryEntryMatcher
  *
  * @package Magefix\Fixtures
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class RegistryEntryMatcher
 {

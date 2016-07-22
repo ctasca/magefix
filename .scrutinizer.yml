@@ -18,6 +18,18 @@ checks:
         code_rating: true
         duplication: true
 
+build:
+    environment:
+        ruby: 2.2.0
+        php: '5.6.14'
+    tests:
+        before:
+            - mkdir -p ~/artifacts
+            - sudo apt-get install -y graphviz
+        override:
+            - { command: 'bash tools/bash/phpmetrics.sh', idle_timeout: 180 }
+    cache:
+        directories: [ vendor/, bin/, tools/]
 filter:
     paths:
         - 'magefix/src/*'
@@ -26,4 +38,7 @@ build_failure_conditions:
     - 'elements.rating(<= C).exists'
     - 'issues.new.exists'
     - 'project.metric("scrutinizer.quality", < 9.5)'
+
+# inherit the next configuration down the chain
+inherit: true
 

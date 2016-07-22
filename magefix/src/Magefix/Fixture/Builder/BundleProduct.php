@@ -14,7 +14,7 @@ use Magefix\Magento\Store\Scope as MagentoStoreScope;
  * Class BundleProduct
  *
  * @package Magefix\Fixture\Builder
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class BundleProduct extends Product
 {

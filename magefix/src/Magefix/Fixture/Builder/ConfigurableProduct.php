@@ -12,7 +12,7 @@ use Mage_Catalog_Model_Product;
  * Class ConfigurableProduct
  *
  * @package Magefix\Fixture\Builder
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class ConfigurableProduct extends Product
 {

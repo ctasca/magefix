@@ -33,7 +33,8 @@
     "magetest/magento-behat-extension": "dev-feature/Behat3",
     "sensiolabs/behat-page-object-extension": "dev-master",
     "behat/mink-selenium2-driver": "*",
-    "behat/mink-goutte-driver": "~1.1"
+    "behat/mink-goutte-driver": "~1.1",
+    "phpmetrics/phpmetrics": "*"
   },
   "minimum-stability": "dev",
   "autoload": {

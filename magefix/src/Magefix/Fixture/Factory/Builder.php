@@ -18,7 +18,7 @@ use Magefix\Fixture\Builder\AbstractBuilder as FixtureBuilder;
  * Provide utility method build to build Fixtures
  *
  * @package Magefix\Fixture\Factory
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 final class Builder implements Typeable
 {

@@ -13,7 +13,7 @@ use Magefix\Behat\Hook;
  * Class Registry
  *
  * @package Magefix\Fixtures
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 trait Registry
 {

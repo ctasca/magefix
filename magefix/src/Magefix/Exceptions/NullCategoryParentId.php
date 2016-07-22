@@ -8,7 +8,7 @@ namespace Magefix\Exceptions;
  * Thrown when a category fixture yaml does not define a parent_id
  *
  * @package Magefix\Exceptions
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class NullCategoryParentId extends \Exception
 {
