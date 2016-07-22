@@ -3,15 +3,34 @@
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use MageTest\MagentoExtension\Context\MagentoContext;
+use Behat\Behat\Context\Context;
 use Magefix\Fixtures\Registry as FixturesRegistry;
 use Magefix\Fixture\Factory\Builder as FixtureBuilder;
-
+use Magefix\Fixture\Builder\Helper\Checkout as MagentoCheckoutHelper;
+use Magefix\Fixture\Builder\Helper\ShippingMethod as MagentoShippingHelper;
+use Magento\Page\Homepage;
 /**
  * Default features context.
  */
-class FeatureContext extends MagentoContext implements SnippetAcceptingContext
+class FeatureContext extends MagentoContext implements Context, SnippetAcceptingContext
 {
     use FixturesRegistry;
+
+    private $_homepage;
+
+    /**
+     * @BeforeFeature
+     */
+    public static function setup()
+    {
+        MagentoCheckoutHelper::enablePaymentMethod('checkmo');
+        MagentoShippingHelper::enable('freeshipping');
+    }
+    
+    public function __construct(Homepage $homepage)
+    {
+        $this->_homepage = $homepage;
+    }
 
     /**
      * @Given I setup a product fixture
@@ -81,9 +100,6 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
         $this->_buildGuestSalesOrderFixture();
     }
 
-    /**
-     * @BeforeScenario
-     */
     public function beforeScenario()
     {
         $this->_buildRegisterSalesOrderFixture();
@@ -257,7 +273,7 @@ class FeatureContext extends MagentoContext implements SnippetAcceptingContext
     {
         FixtureBuilder::build(
             FixtureBuilder::SALES_ORDER_FIXTURE_TYPE, new FixturesLocator(), 'sales-order-register.yml',
-            '@BeforeScenario'
+            '@AfterScenario'
         );
     }
 
