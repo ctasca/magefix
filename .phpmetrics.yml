@@ -5,14 +5,14 @@ radley:
         symlinks: true
     logging:
         report:
-            html: ./phpmetrics/var/phpmetrics-report.html
-            xml: ./phpmetrics/var/phpmetrics/phpmetrics-report.xml
-            csv: ./phpmetrics/var/phpmetrics/phpmetrics-report.csv
-            json: ./phpmetrics/var/phpmetrics/phpmetrics-report.csv
+            html: ./artifacts/phpmetrics/phpmetrics-report.html
+            xml: ./artifacts/phpmetrics/phpmetrics-report.xml
+            csv: ./artifacts/phpmetrics/phpmetrics-report.csv
+            json: ./artifacts/phpmetrics/phpmetrics-report.csv
         violations:
-            xml: ./phpmetrics/var/phpmetrics-violations.xml
+            xml: ./artifacts/phpmetrics/phpmetrics-violations.xml
         chart:
-            bubbles: ./phpmetrics/var/phpmetrics-bubbles.svg
+            bubbles: ./artifacts/phpmetrics/var/phpmetrics-bubbles.svg
     template:
         title: PhpMetrics report for Magefix
         offline: true

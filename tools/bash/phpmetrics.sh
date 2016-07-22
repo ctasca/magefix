@@ -2,7 +2,7 @@
 
 PHPMETRICS_DOWNLOAD_URL=https://github.com/PhpMetrics/PhpMetrics/raw/master/build/phpmetrics.phar
 PHPMETRICS_APP_PATH=./bin/phpmetrics
-PHPMETRICS_REPORT_DESTINATION_PATH=./var/phpmetrics/
+PHPMETRICS_REPORT_DESTINATION_PATH=./artifacts
 ARTIFACTS_PATH=~/artifacts/
 
 function verifyGraphvizIsInstalled() {
