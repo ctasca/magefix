@@ -6,6 +6,7 @@ use SensioLabs\Behat\PageObjectExtension\PageObject\Page as PageObject;
 use Magefix\Plugin\WindowResizer;
 use Magefix\Plugin\StorePage;
 use Magefix\Plugin\DriverCurrentUrl;
+use Magefix\Plugin\ElementObjectGetter;
 
 /**
  * Class Homepage
@@ -17,6 +18,5 @@ class Homepage extends PageObject
     use StorePage;
     use WindowResizer;
     use DriverCurrentUrl;
-
-    protected $path = '/';
+    use ElementObjectGetter;
 }
