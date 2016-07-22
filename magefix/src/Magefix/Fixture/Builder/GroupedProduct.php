@@ -8,7 +8,7 @@ use Mage_Catalog_Model_Product_Type;
 /**
  * Class GroupedProduct
  * @package Magefix\Fixture\Builder
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class GroupedProduct extends Product
 {

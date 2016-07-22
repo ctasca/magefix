@@ -9,7 +9,7 @@ namespace Magefix\Exceptions;
  * not been defined in fixture YAML.
  *
  * @package Magefix\Exceptions
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class UndefinedBundleProducts extends \Exception
 {

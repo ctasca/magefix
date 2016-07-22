@@ -19,7 +19,7 @@ use Magefix\Plugin\WindowResizer;
  * Provides a generic class to instantiate Behat Page Objects with Magefix Plugins
  *
  * @package Magefix\Behat\Page
- * @author  Carlo Tasca <ctasca@inviqa.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 abstract class MagePage extends PageObject
 {

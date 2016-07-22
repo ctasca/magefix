@@ -11,7 +11,7 @@ use Magefix\Magento\Model\Mapper;
  * Class RegistryIterator
  *
  * @package Magefix\Fixtures
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class RegistryIterator extends \ArrayObject
 {

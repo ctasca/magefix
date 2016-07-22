@@ -12,7 +12,7 @@ use Magefix\Fixture\Builder\Helper;
  * Class QuoteCustomer
  *
  * @package Magefix\Fixture\Builder\Helper
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class QuoteCustomer implements Helper
 {

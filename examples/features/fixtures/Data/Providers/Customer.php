@@ -11,7 +11,7 @@ use Mage;
  * Customer fixture data provider
  *
  * @package Data\Providers
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class Customer implements Provider
 {

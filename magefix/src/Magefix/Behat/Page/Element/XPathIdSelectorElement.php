@@ -6,7 +6,7 @@ namespace Magefix\Behat\Page\Element;
  * Class XPathIdSelectorElement
  * 
  * @package Magefix\Behat\Page\Element
- * @author  Carlo Tasca <ctasca@inviqa.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class XPathIdSelectorElement extends Generic
 {

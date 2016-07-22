@@ -6,7 +6,7 @@ use SensioLabs\Behat\PageObjectExtension\PageObject\Element;
 /**
  * Class DriverSwitcher
  * @package Magefix\Plugin
- * @author  Carlo Tasca <ctasca@inviqa.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 trait DriverSwitcher
 {

@@ -6,7 +6,7 @@ namespace Magefix\Behat;
  * Class Hook
  *
  * @package Magefix\Behat
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 trait Hook
 {

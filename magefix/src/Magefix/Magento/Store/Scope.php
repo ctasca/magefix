@@ -11,7 +11,7 @@ use Mage_Core_Model_App;
  * Provides functionality to switch Magento store scope during fixtures building
  *
  * @package Magefix\Magento\Store
- * @author  Carlo Tasca <ctasca@sessiondigital.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 class Scope
 {

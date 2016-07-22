@@ -6,7 +6,7 @@ namespace Magefix\Plugin;
  * Class DriverCurrentUrl
  * 
  * @package Magefix\Plugin
- * @author  Carlo Tasca <ctasca@inviqa.com>
+ * @author  Carlo Tasca <ctasca.d3@gmail.com>
  */
 trait DriverCurrentUrl
 {
