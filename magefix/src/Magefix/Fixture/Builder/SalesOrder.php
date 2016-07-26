@@ -184,7 +184,7 @@ class SalesOrder extends AbstractBuilder
 
     protected function _importPaymentData(array $data)
     {
-        $this->_getMageModel()->getPayment()->importData(['method' => $data['method']]);
+        $this->_getMageModel()->getPayment()->importData($data);
     }
 
     /**
