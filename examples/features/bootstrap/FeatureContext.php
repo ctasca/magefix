@@ -8,7 +8,7 @@ use Magefix\Fixtures\Registry as FixturesRegistry;
 use Magefix\Fixture\Factory\Builder as FixtureBuilder;
 use Magefix\Fixture\Builder\Helper\Checkout as MagentoCheckoutHelper;
 use Magefix\Fixture\Builder\Helper\ShippingMethod as MagentoShippingHelper;
-use Magento\Page\Homepage;
+use Mage\Page\Homepage;
 /**
  * Default features context.
  */
