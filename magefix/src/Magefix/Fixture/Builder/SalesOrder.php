@@ -42,8 +42,8 @@ class SalesOrder extends AbstractBuilder
         $this->_getMageModel()->setData($mergedData);
         $this->_buildQuoteProductFixtures();
         $this->_addProductsToQuote();
-        $this->_setCheckoutMethod();
         $this->_addAddressesToQuote();
+        $this->_setCheckoutMethod();
         $this->_setShippingMethod();
         $this->_setPaymentMethod();
 
