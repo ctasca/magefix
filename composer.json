@@ -29,16 +29,16 @@
   "require": {
     "php": ">=5.3",
     "symfony/yaml": "~2.0",
-    "behat/behat": "3.0.15",
-    "phpspec/phpspec": "2.5.1",
-    "magetest/magento-behat-extension": "dev-feature/Behat3",
-    "sensiolabs/behat-page-object-extension": "dev-master",
-    "behat/mink-selenium2-driver": "*",
-    "behat/mink-goutte-driver": "~1.1"
+    "magetest/magento-behat-extension": "dev-feature/Behat3"
   },
   "require-dev": {
     "phpmetrics/phpmetrics": "*",
-    "bossa/phpspec2-expect": "~1.0"
+    "bossa/phpspec2-expect": "~1.0",
+    "behat/behat": "3.0.15",
+    "phpspec/phpspec": "2.5.1",
+    "sensiolabs/behat-page-object-extension": "dev-master",
+    "behat/mink-selenium2-driver": "*",
+    "behat/mink-goutte-driver": "~1.1"
   },
   "minimum-stability": "dev",
   "autoload": {
