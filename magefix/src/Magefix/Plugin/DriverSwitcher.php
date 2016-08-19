@@ -42,6 +42,16 @@ trait DriverSwitcher
     }
 
     /**
+     * Return the name of the currently active window.
+     *
+     * @return string the name of the current window
+     */
+    public function getDriverActiveWindowName()
+    {
+        return $this->getDriver()->getWindowName();
+    }
+
+    /**
      * @param $iFrame
      * @throws \ReflectionException
      */
